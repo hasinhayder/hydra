@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserRoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,4 @@ Route::post('users',[UserController::class,'store']);
 Route::post('login',[UserController::class,'login']);
 
 Route::apiResource('roles',RoleController::class)->except(['create','edit'])->middleware(['auth:sanctum', 'abilities:admin,super-admin']);
+Route::apiResource('users.roles',UserRoleController::class)->except(['create','edit','show','update'])->middleware(['auth:sanctum', 'abilities:admin,super-admin']);
