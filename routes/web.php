@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginSPAController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +15,4 @@ use App\Http\Controllers\LoginSPAController;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
-
-Route::post('/register',[LoginSPAController::class,'register']);
-Route::post('/login',[LoginSPAController::class,'login']);
-Route::get('/logout',[LoginSPAController::class,'logout'])->name('logout');
-Route::get('/login',[LoginSPAController::class,'loginForm'])->name('login');
+});
