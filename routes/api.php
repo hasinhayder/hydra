@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('users',UserController::class)->except(['create','edit','show','update','destroy']);
-Route::apiResource('users',UserController::class)->except(['store','index'])->middleware('auth:sanctum');
+Route::apiResource('users',UserController::class)->except(['edit','create'])->middleware(['auth:sanctum', 'abilities:admin,super-admin']);
+Route::post('users',[UserController::class,'store']);
 Route::post('login',[UserController::class,'login']);
+
+Route::apiResource('roles',RoleController::class)->except(['create','edit'])->middleware(['auth:sanctum', 'abilities:admin,super-admin']);
