@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Laravel\Sanctum\Exceptions\MissingAbilityException;
 use Throwable;
 
 class Handler extends ExceptionHandler {
@@ -53,6 +54,13 @@ class Handler extends ExceptionHandler {
                 'error'=>1,
                 'message'=>$exception->getMessage()
             ],404);
+        }
+
+        if ($exception instanceof MissingAbilityException) {
+            return response([
+                'error'=>1,
+                'message'=>"Not authorized"
+            ],409);
         }
         return parent::render($request, $exception);
     }
