@@ -64,3 +64,7 @@ php artisan route:list
 
 ![Hydra - List of Default Routes](https://i.postimg.cc/PTb4zQKz/ezgif-5-78882ff5fc.webp)
 
+
+## Routes Documentation
+
+[Coming Soon...]
