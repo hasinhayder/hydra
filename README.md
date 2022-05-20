@@ -62,5 +62,5 @@ Here is a list of default routes. Run the following artisan command to see this 
 php artisan route:list
 ```
 
-![Hydra - List of Default Routes](https://i.ibb.co/713RHTg/ezgif-5-78882ff5fc.webp)
+![Hydra - List of Default Routes](https://i.postimg.cc/PTb4zQKz/ezgif-5-78882ff5fc.webp)
 
