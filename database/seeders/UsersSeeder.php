@@ -19,7 +19,7 @@ class UsersSeeder extends Seeder
     {
         DB::table('users')->truncate();
         User::create([
-            'email'=>'admin@example.com',
+            'email'=>'admin@hydra.project',
             'password'=>Hash::make('hydra'),
             'name'=>'Hydra Admin'
         ]);
