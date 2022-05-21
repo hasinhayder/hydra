@@ -87,4 +87,66 @@ Role::select(['id','slug','name'])->get()
 
 ## Routes Documentation
 
-[Coming Soon...]
+Let's have a look at what Hydra has to offer. Before experimenting with the following API endpoints, run your Hydra project using `php artisan serve` command. For the next part of this documentation, we assumed that Hydra is listening at http://localhost:8000
+
+### User Registration
+
+You can make an `HTTP POST` call to the following endpoint to create/register a new user. newly created user will have the `user` role by default.
+
+```shell
+http://localhost:8000/api/users
+```
+
+**API Payload & Response**
+
+You can send a Form Multipart payload or a JSON payload like this
+
+```json
+{
+    "name":"Hydra User",
+    "email":"user@hydra.project",
+    "passsword":"Surprisingly A Good Password"
+}
+```
+
+Voila! your user has been created and is now ready to login!
+
+### User Authentication (Admin)
+
+Remember Hydra comes with the default admin user? You can login as an admin by making an HTTP POST call to the folllowing route
+
+```shell
+http://localhost:8000/api/login
+```
+
+**API Payload & Response**
+
+You can send a Form Multipart or a JSON payload like this
+
+```json
+{
+    "email":"admin@hydra.project",
+    "passsword":"hydra"
+}
+```
+
+**API Response**
+You will get a JSON response with user token. You need this admin token for making any call to other routes protected by admin ability.
+
+```json
+{
+    "error": 0,
+    "token": "1|se9wkPKTxevv9jpVgXN8wS5tYKx53wuRLqvRuqCR"
+}
+```
+
+For any unsuccsesful attempt, you will receive a 401 response. 
+
+```json
+{
+    "error": 1,
+    "message": "invalid credentials"
+}
+```
+
+[Documentation Work In Progress...]
