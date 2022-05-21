@@ -169,7 +169,7 @@ You can send a Form Multipart or a JSON payload like this
 ```
 
 **API Response**
-You will get a JSON response with user token. You need this admin token for making any call to other routes protected by admin ability.
+You will get a JSON response with user token. You need this user token for making any call to other routes protected by user ability.
 
 ```json
 {
