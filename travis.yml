@@ -1,0 +1,22 @@
+os:
+  - linux
+
+language: php
+
+php:
+  - '7.1'
+  - '7.3'
+  - '7.4'
+  - '8.0'
+  - '8.1'
+
+before_script:
+  - composer self-update
+  - composer install --no-interaction
+  - cp .env.example .env
+  - touch database/hydra.sqlite
+  - php artisan migrate
+  - php artisan db:seed
+
+script:
+  - php artisan test
