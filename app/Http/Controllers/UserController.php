@@ -93,7 +93,7 @@ class UserController extends Controller {
         }
 
         $plainTextToken = $user->createToken('hydra-api-token', $_roles)->plainTextToken;
-        return response(['error' => 0,'id'=>$user->id, 'token' => $plainTextToken], 200);
+        return response(['error' => 0, 'id' => $user->id, 'token' => $plainTextToken], 200);
     }
 
     /**
@@ -137,7 +137,7 @@ class UserController extends Controller {
             $user->update();
         } else if ($loggedInUser->tokenCan('admin') || $loggedInUser->tokenCan('super-admin')) {
             $user->update();
-        }else{
+        } else {
             throw new MissingAbilityException("Not Authorized");
         }
 
@@ -151,10 +151,16 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user) {
-        //check if the current user is admin, then if there is only one admin - don't delete
-        $numberOfAdmins =  Role::where('slug', 'admin')->first()->users()->count();
-        if (1 == $numberOfAdmins) {
-            return response(['error' => 1, 'message' => 'Create another admin before deleting this only admin user'], 409);
+
+        $adminRole = Role::where('slug','admin')->first();
+        $userRoles = $user->roles;
+
+        if ($userRoles->contains($adminRole)) {
+            //the current user is admin, then if there is only one admin - don't delete
+            $numberOfAdmins =  Role::where('slug', 'admin')->first()->users()->count();
+            if (1 == $numberOfAdmins) {
+                return response(['error' => 1, 'message' => 'Create another admin before deleting this only admin user'], 409);
+            }
         }
 
         $user->delete();
@@ -162,7 +168,7 @@ class UserController extends Controller {
         return response(['error' => 0, 'message' => 'user deleted']);
     }
 
-    public function me(Request $request){
+    public function me(Request $request) {
         return $request->user();
     }
 }
