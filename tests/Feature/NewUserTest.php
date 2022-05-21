@@ -106,6 +106,30 @@ class NewUserTest extends TestCase {
             );
     }
 
+    public function test_new_user_destroy_as_user() {
+
+        $response = $this->postJson('/api/login', [
+            'email' => 'test@test.com',
+            'password' => 'test'
+        ]);
+
+        $data = json_decode($response->getContent());
+        $this->token = $data->token;
+        $this->user_id = $data->id;
+
+        $target = User::where('email','test@test.com')->first();
+
+        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        ->delete("/api/users/{$target->id}");
+
+        $response
+            ->assertJson(
+                fn (AssertableJson $json) =>
+                $json->where('error',1)
+                ->has('message')
+            );
+    }
+
     public function test_new_user_destroy_as_admin() {
 
         $response = $this->postJson('/api/login', [
