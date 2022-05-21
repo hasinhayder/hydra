@@ -46,16 +46,11 @@ jobs:
 
       - run:
           name: "Create Environment file and generate app key"
-          command: |
-            mv .env.example .env
-            php artisan key:generate
+          command: mv .env.example .env && php artisan key:generate
 
       - run:
           name: "Create database and run migration"
-          command: |
-            touch database/hydra.sqlite
-            php artisan migrate
-            php artisan db:seed
+          command: touch database/hydra.sqlite && php artisan migrate && php artisan db:seed
 
       - run:
           name: "Run Tests"
