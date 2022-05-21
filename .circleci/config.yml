@@ -37,7 +37,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: composer install -n --prefer-dist
+      - run: composer install
 
       - save_cache:
           key: v1-dependencies-{{ checksum "composer.json" }}
@@ -56,9 +56,9 @@ jobs:
             touch database/hydra.sqlite
             php artisan migrate
             php artisan db:seed
-      
+
       - run:
           name: "Run Tests"
           command: ./vendor/bin/phpunit
-      
-      
+
+
