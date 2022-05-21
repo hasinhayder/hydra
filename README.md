@@ -20,6 +20,7 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
     - [List Roles (Admin Ability Required)](#list-roles-admin-ability-required)
     - [Add a New Role (Admin Ability Required)](#add-a-new-role-admin-ability-required)
     - [Update a Role (Admin Ability Required)](#update-a-role-admin-ability-required)
+    - [Delete a Role (Admin Ability Required)](#delete-a-role-admin-ability-required)
 
 ## Getting Started
 
@@ -317,7 +318,7 @@ For any unsuccsesful attempt or wrong token, you will receive a 401 error respon
 
 ### Update a Role (Admin Ability Required)
 
-To list the roles, make an `HTTP PUT` or `HTTP PATCH` call to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call.
+To update a role, make an `HTTP PUT` or `HTTP PATCH` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call.
 
 ```shell
 http://localhost:8000/api/roles/{roleid}
@@ -356,4 +357,45 @@ For any unsuccsesful attempt or wrong token, you will receive a 401 error respon
 }
 ```
 
+### Delete a Role (Admin Ability Required)
+
+To delete a role, make an `HTTP DELETE` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call.
+
+```shell
+http://localhost:8000/api/roles/{roleid}
+```
+
+For example to delete the Customer role, use this endpoint `http://localhost:8000/api/roles/3`
+
+**API Payload & Response**
+
+No payload required for this endpoint.
+
+For successful execution, you will get a JSON response with this updated role.
+
+```json
+{
+    "error": 0,
+    "message": "role has been deleted"
+}
+```
+
+Please note that you cannot delete the `admin` role because many API routes in Hydra exclusively require this role to function properly.
+
+If you try to delete the admin role you will receive the following 422 error response
+
+```json
+{
+    "error": 1,
+    "message": "you cannot delete this role"
+}
+```
+
+For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
 [Documentation In Progress...]
