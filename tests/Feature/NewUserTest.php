@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
-
+use App\Models\User;
 
 class NewUserTest extends TestCase {
     /**
@@ -57,13 +57,14 @@ class NewUserTest extends TestCase {
 
         $data = json_decode($response->getContent());
         $this->token = $data->token;
-        echo $this->token;
+        $this->user_id = $data->id;
 
         $response
             ->assertJson(
                 fn (AssertableJson $json) =>
                 $json->where('error', 0)
                     ->has('token')
+                    ->has('id')
             );
     }
 
@@ -81,17 +82,51 @@ class NewUserTest extends TestCase {
             );
     }
 
-    public function test_new_user_data_update() {
+    public function test_new_user_name_update() {
+
         $response = $this->postJson('/api/login', [
             'email' => 'test@test.com',
-            'password' => 'testX'
+            'password' => 'test'
+        ]);
+
+        $data = json_decode($response->getContent());
+        $this->token = $data->token;
+        $this->user_id = $data->id;
+
+        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        ->put("/api/users/{$this->user_id}", [
+            'name' => 'Mini Me',
         ]);
 
         $response
             ->assertJson(
                 fn (AssertableJson $json) =>
-                $json->where('error', 1)
-                    ->has('message')
+                $json->where('name', "Mini Me")
+                    ->etc()
+            );
+    }
+
+    public function test_new_user_destroy_as_admin() {
+
+        $response = $this->postJson('/api/login', [
+            'email' => 'admin@hydra.project',
+            'password' => 'hydra'
+        ]);
+
+        $data = json_decode($response->getContent());
+        $this->token = $data->token;
+        $this->user_id = $data->id;
+
+        $target = User::where('email','test@test.com')->first();
+
+        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        ->delete("/api/users/{$target}");
+
+        $response
+            ->assertJson(
+                fn (AssertableJson $json) =>
+                $json->where('error',0)
+                ->where('message','user deleted')
             );
     }
 }
