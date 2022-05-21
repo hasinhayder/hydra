@@ -194,4 +194,148 @@ For any unsuccsesful attempt, you will receive a 401 error response.
 }
 ```
 
+### List Roles (Admin Ability Required)
+
+To list the roles, make an `HTTP GET` call to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call.
+
+```shell
+http://localhost:8000/api/roles
+```
+
+**API Payload & Response**
+
+No payload required for this call.
+
+You will get a JSON response with all the roles available in your project.
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Administrator",
+        "slug": "admin"
+    },
+    {
+        "id": 2,
+        "name": "User",
+        "slug": "user"
+    },
+    {
+        "id": 3,
+        "name": "Customer",
+        "slug": "customer"
+    },
+    {
+        "id": 4,
+        "name": "Editor",
+        "slug": "editor"
+    },
+    {
+        "id": 5,
+        "name": "All",
+        "slug": "*"
+    },
+    {
+        "id": 6,
+        "name": "Super Admin",
+        "slug": "super-admin"
+    }
+]
+```
+
+For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### Add a New Role (Admin Ability Required)
+
+To list the roles, make an `HTTP POST` call to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call.
+
+```shell
+http://localhost:8000/api/roles
+```
+
+**API Payload & Response**
+
+You need to supply title of the role as `name`, role `slug` in your payload as Multipart Form or JSON data
+
+```json
+{
+    "name":"Manager",
+    "slug":"manager"
+}
+```
+
+For successful execution, you will get a JSON response with this newly created role.
+
+```json
+{
+    "name": "Manager",
+    "slug": "manager",
+    "id": 7
+}
+```
+
+If this role `slug` already exists, you will get a 409 error message like this
+
+```json
+{
+    "error": 1,
+    "message": "role already exists"
+}
+```
+
+For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### Update a Role (Admin Ability Required)
+
+To list the roles, make an `HTTP PUT` or `HTTP PATCH` call to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call.
+
+```shell
+http://localhost:8000/api/roles/{roleid}
+```
+
+For example to update the Customer role, use this endpoint `http://localhost:8000/api/roles/3`
+
+**API Payload & Response**
+
+You need to supply title of the role as `name`, and/or role `slug` in your payload as Multipart Form or JSON data
+
+```json
+{
+    "name":"Product Customer",
+    "slug":"product-customer"
+}
+```
+
+For successful execution, you will get a JSON response with this updated role.
+
+```json
+{
+    "id": 3,
+    "name": "Product Customer",
+    "slug": "product-customer"
+}
+```
+
+Please note that you cannot change a `super-admin` or `admin` role slug because many API routes in Hydra exclusively require this role to function properly.
+
+For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
 [Documentation In Progress...]
