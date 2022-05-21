@@ -40,7 +40,7 @@ class UserController extends Controller {
         $creds = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'name' => 'optional'
+            'name' => 'nullable|string'
         ]);
 
         $user = User::where('email', $creds['email'])->first();
@@ -51,7 +51,7 @@ class UserController extends Controller {
         $user = User::create([
             'email' => $creds['email'],
             'password' => Hash::make($creds['password']),
-            'name' => $creds['email']
+            'name' => $creds['name']
         ]);
 
         $default_user_role_id = Option::where('key', 'default_role_id')->first()->value;
