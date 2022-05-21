@@ -6,6 +6,19 @@
 
 Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excellent user and role management API out of the box. Start your next big API project with Hydra, focus on building business logic, and save countless hours of writing boring user and role management API again and again.
 
+- [Hydra - Zero Config API Boilerplate with Laravel Sanctum](#hydra---zero-config-api-boilerplate-with-laravel-sanctum)
+  - [Getting Started](#getting-started)
+  - [Database Migration and Seeding](#database-migration-and-seeding)
+  - [List of Default Routes](#list-of-default-routes)
+  - [Default Roles](#default-roles)
+  - [Routes Documentation](#routes-documentation)
+    - [User Registration](#user-registration)
+    - [User Authentication/Login (Admin)](#user-authenticationlogin-admin)
+    - [User Authentication/Login (Other Roles)](#user-authenticationlogin-other-roles)
+    - [List Roles (Admin Ability Required)](#list-roles-admin-ability-required)
+    - [Add a New Role (Admin Ability Required)](#add-a-new-role-admin-ability-required)
+    - [Update a Role (Admin Ability Required)](#update-a-role-admin-ability-required)
+
 ## Getting Started
 
 It's super easy to get Hydra up and running.
