@@ -15,7 +15,7 @@ class AdminLoginTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_admin_login()
     {
         $response = $this->postJson('/api/login',[
             'email'=>'admin@hydra.project',
@@ -27,6 +27,21 @@ class AdminLoginTest extends TestCase
             $json->where('error', 0)
                  ->has('token')
                  ->etc()
+        );
+    }
+
+    public function test_admin_login_fail()
+    {
+        $response = $this->postJson('/api/login',[
+            'email'=>'admin@hydra.project',
+            'password'=>'hydrax'
+        ]);
+
+        $response
+        ->assertJson(fn (AssertableJson $json) =>
+            $json->where('error', 1)
+                 ->missing('token')
+                 ->has('message')
         );
     }
 }
