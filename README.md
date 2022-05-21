@@ -111,6 +111,15 @@ You can send a Form Multipart payload or a JSON payload like this
 
 Voila! your user has been created and is now ready to login!
 
+If this user already exists, then you will receive a 409 Response like this
+
+```json
+{
+    "error": 1,
+    "message": "user already exists"
+}
+```
+
 ### User Authentication (Admin)
 
 Remember Hydra comes with the default admin user? You can login as an admin by making an HTTP POST call to the folllowing route
