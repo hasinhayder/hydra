@@ -81,8 +81,11 @@ php artisan tinker
 run the following command
 
 ```php
-Role::select(['id','slug','name'])->get()
-//Or Role::all()
+>>> Role::select(['id','slug','name'])->get()
+//or
+>>> Role::all(['id','name','slug'])
+//or
+>>> Role::all()
 ```
 
 ## Routes Documentation
