@@ -120,7 +120,7 @@ class NewUserTest extends TestCase {
         $target = User::where('email','test@test.com')->first();
 
         $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-        ->delete("/api/users/{$target}");
+        ->delete("/api/users/{$target->id}");
 
         $response
             ->assertJson(
