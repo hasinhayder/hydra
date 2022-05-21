@@ -94,9 +94,9 @@ class NewUserTest extends TestCase {
         $this->user_id = $data->id;
 
         $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-        ->put("/api/users/{$this->user_id}", [
-            'name' => 'Mini Me',
-        ]);
+            ->put("/api/users/{$this->user_id}", [
+                'name' => 'Mini Me',
+            ]);
 
         $response
             ->assertJson(
@@ -118,9 +118,9 @@ class NewUserTest extends TestCase {
         $this->user_id = $data->id;
 
         $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-        ->put("/api/users/{$this->user_id}", [
-            'name' => 'Mini Me',
-        ]);
+            ->put("/api/users/{$this->user_id}", [
+                'name' => 'Mini Me',
+            ]);
 
         $response
             ->assertJson(
@@ -141,16 +141,16 @@ class NewUserTest extends TestCase {
         $this->token = $data->token;
         $this->user_id = $data->id;
 
-        $target = User::where('email','test@test.com')->first();
+        $target = User::where('email', 'test@test.com')->first();
 
         $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-        ->delete("/api/users/{$target->id}");
+            ->delete("/api/users/{$target->id}");
 
         $response
             ->assertJson(
                 fn (AssertableJson $json) =>
-                $json->where('error',1)
-                ->has('message')
+                $json->where('error', 1)
+                    ->has('message')
             );
     }
 
@@ -165,16 +165,16 @@ class NewUserTest extends TestCase {
         $this->token = $data->token;
         $this->user_id = $data->id;
 
-        $target = User::where('email','test@test.com')->first();
+        $target = User::where('email', 'test@test.com')->first();
 
         $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-        ->delete("/api/users/{$target->id}");
+            ->delete("/api/users/{$target->id}");
 
         $response
             ->assertJson(
                 fn (AssertableJson $json) =>
-                $json->where('error',0)
-                ->where('message','user deleted')
+                $json->where('error', 0)
+                    ->where('message', 'user deleted')
             );
     }
 }
