@@ -10,7 +10,7 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
       # Specify the version you desire here
-      - image: cimg/php
+      - image: cimg/php:8.1.5
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
