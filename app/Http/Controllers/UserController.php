@@ -92,7 +92,8 @@ class UserController extends Controller {
             $_roles[] = $role->slug;
         }
 
-        return $user->createToken('hydra-api-token', $_roles)->plainTextToken;
+        $plainTextToken = $user->createToken('hydra-api-token', $_roles)->plainTextToken;
+        return response(['error' => 0, 'token' => $plainTextToken], 200);
     }
 
     /**
