@@ -1,3 +1,7 @@
+![Hydra - Zero Config API Boilerplate for Laravel Sanctum](https://img.icons8.com/external-flaticons-lineal-color-flat-icons/344/external-hydra-ancient-greek-mythology-monsters-and-creatures-flaticons-lineal-color-flat-icons.png)
+
+<br/>
+
 # Hydra - Zero Config API Boilerplate for Laravel Sanctum
 
 Zero config API Boilerplate with user and role management API for Laravel Sanctum.
