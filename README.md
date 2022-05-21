@@ -1,11 +1,15 @@
-<img src='https://img.icons8.com/external-flaticons-lineal-color-flat-icons/344/external-hydra-ancient-greek-mythology-monsters-and-creatures-flaticons-lineal-color-flat-icons.png' width='256px'/>
+<!-- <img src='https://img.icons8.com/external-flaticons-lineal-color-flat-icons/344/external-hydra-ancient-greek-mythology-monsters-and-creatures-flaticons-lineal-color-flat-icons.png' width='256px'/> -->
 
-# Hydra - Zero Config API Boilerplate for Laravel Sanctum
+![Hydra - Zero Config API Boilerplate with Laravel Sanctum](https://res.cloudinary.com/roxlox/image/upload/v1653131751/hydra/hydra_ygibap.png)
 
-Zero config API Boilerplate with user and role management API for Laravel Sanctum.
+# Hydra - Zero Config API Boilerplate with Laravel Sanctum
+
+Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excellent user and role management API out of the box. Start your next big API project with Hydra, focus on building business logic, and save countless hours of writing boring user and role management API again and again.
 
 ## Getting Started
+
 It's super easy to get Hydra up and running.
+
 1. clone the project
 
 ```shell
@@ -60,12 +64,26 @@ Please note that the default admin user is **admin@hydra.project** and default p
 
 Here is a list of default routes. Run the following artisan command to see this list in your terminal.
 
-```
+```shell
 php artisan route:list
 ```
 
-![Hydra - List of Default Routes](https://i.postimg.cc/PTb4zQKz/ezgif-5-78882ff5fc.webp)
+![Hydra - List of Default Routes](https://res.cloudinary.com/roxlox/image/upload/v1653131647/hydra/default-routes-hydra_fgn9oh.webp)
 
+## Default Roles
+
+Hydra comes with these `super-admin`,`admin`,`editor`,`customer` & `user` roles out of the box. For details, open the roles table after database seeding, or simply open laravel tinker and experiment with `Role` model
+
+```shell
+php artisan tinker
+```
+
+run the following command
+
+```php
+Role::select(['id','slug','name'])->get()
+//Or Role::all()
+```
 
 ## Routes Documentation
 
