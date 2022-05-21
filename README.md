@@ -1,6 +1,4 @@
-![Hydra - Zero Config API Boilerplate for Laravel Sanctum](https://img.icons8.com/external-flaticons-lineal-color-flat-icons/344/external-hydra-ancient-greek-mythology-monsters-and-creatures-flaticons-lineal-color-flat-icons.png)
-
-<br/>
+<img src='https://img.icons8.com/external-flaticons-lineal-color-flat-icons/344/external-hydra-ancient-greek-mythology-monsters-and-creatures-flaticons-lineal-color-flat-icons.png' width='256px'/>
 
 # Hydra - Zero Config API Boilerplate for Laravel Sanctum
 
