@@ -140,7 +140,45 @@ You will get a JSON response with user token. You need this admin token for maki
 }
 ```
 
-For any unsuccsesful attempt, you will receive a 401 response. 
+For any unsuccsesful attempt, you will receive a 401 response.
+
+```json
+{
+    "error": 1,
+    "message": "invalid credentials"
+}
+```
+
+### User Authentication (Other Roles)
+
+You can login as a user by making an HTTP POST call to the folllowing route
+
+```shell
+http://localhost:8000/api/login
+```
+
+**API Payload & Response**
+
+You can send a Form Multipart or a JSON payload like this
+
+```json
+{
+    "email":"user@hydra.project",
+    "passsword":"Surprisingly A Good Password"
+}
+```
+
+**API Response**
+You will get a JSON response with user token. You need this admin token for making any call to other routes protected by admin ability.
+
+```json
+{
+    "error": 0,
+    "token": "2|u0ZUNlNtXgdUmtQSACRU1KWBKAmcaX8Bkhd2xVIf"
+}
+```
+
+For any unsuccsesful attempt, you will receive a 401 response.
 
 ```json
 {
