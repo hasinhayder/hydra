@@ -120,7 +120,7 @@ If this user already exists, then you will receive a 409 Response like this
 }
 ```
 
-### User Authentication (Admin)
+### User Authentication/Login (Admin)
 
 Remember Hydra comes with the default admin user? You can login as an admin by making an HTTP POST call to the folllowing route
 
@@ -157,7 +157,7 @@ For any unsuccsesful attempt, you will receive a 401 error response.
 }
 ```
 
-### User Authentication (Other Roles)
+### User Authentication/Login (Other Roles)
 
 You can login as a user by making an HTTP POST call to the folllowing route
 
