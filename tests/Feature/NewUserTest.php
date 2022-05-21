@@ -82,7 +82,7 @@ class NewUserTest extends TestCase {
             );
     }
 
-    public function test_new_user_name_update() {
+    public function test_new_user_name_update_with_user_token() {
 
         $response = $this->postJson('/api/login', [
             'email' => 'test@test.com',
@@ -106,7 +106,31 @@ class NewUserTest extends TestCase {
             );
     }
 
-    public function test_new_user_destroy_as_user() {
+    public function test_new_user_name_update_with_admin_token() {
+
+        $response = $this->postJson('/api/login', [
+            'email' => 'admin@hydra.project',
+            'password' => 'hydra'
+        ]);
+
+        $data = json_decode($response->getContent());
+        $this->token = $data->token;
+        $this->user_id = $data->id;
+
+        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        ->put("/api/users/{$this->user_id}", [
+            'name' => 'Mini Me',
+        ]);
+
+        $response
+            ->assertJson(
+                fn (AssertableJson $json) =>
+                $json->where('name', "Mini Me")
+                    ->etc()
+            );
+    }
+
+    public function test_new_user_destroy_as_user_should_fail() {
 
         $response = $this->postJson('/api/login', [
             'email' => 'test@test.com',
