@@ -139,7 +139,6 @@ You can send a Form Multipart or a JSON payload like this
 }
 ```
 
-**API Response**
 You will get a JSON response with user token. You need this admin token for making any call to other routes protected by admin ability.
 
 ```json
@@ -149,7 +148,7 @@ You will get a JSON response with user token. You need this admin token for maki
 }
 ```
 
-For any unsuccsesful attempt, you will receive a 401 response.
+For any unsuccsesful attempt, you will receive a 401 error response.
 
 ```json
 {
@@ -177,7 +176,6 @@ You can send a Form Multipart or a JSON payload like this
 }
 ```
 
-**API Response**
 You will get a JSON response with user token. You need this user token for making any call to other routes protected by user ability.
 
 ```json
@@ -187,7 +185,7 @@ You will get a JSON response with user token. You need this user token for makin
 }
 ```
 
-For any unsuccsesful attempt, you will receive a 401 response.
+For any unsuccsesful attempt, you will receive a 401 error response.
 
 ```json
 {
@@ -196,4 +194,4 @@ For any unsuccsesful attempt, you will receive a 401 response.
 }
 ```
 
-[Documentation Work In Progress...]
+[Documentation In Progress...]
