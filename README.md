@@ -416,7 +416,7 @@ For example to get all roles assigned to the user with id 2, use this endpoint `
 
 No payload is required for this call.
 
-For successful execution, you will get a JSON response containing the user with this updated role.
+For successful execution, you will get a JSON response containing the user with all asigned roles to it.
 
 ```json
 {
@@ -469,7 +469,7 @@ You need to supply `role_id` in your payload as Multipart Form or JSON data
 }
 ```
 
-For successful execution, you will get a JSON response containing the user with this updated role.
+For successful execution, you will get a JSON response containing the user with all asigned roles to it.
 
 ```json
 {
@@ -520,7 +520,7 @@ For example to delete a role with id 3 from the user with id 2, use this endpoin
 
 No payload is required for this call
 
-For successful execution, you will get a JSON response containing the user with this updated role.
+For successful execution, you will get a JSON response containing the user with all asigned roles to it.
 
 ```json
 {
