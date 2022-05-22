@@ -21,6 +21,8 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
     - [Add a New Role (Admin Ability Required)](#add-a-new-role-admin-ability-required)
     - [Update a Role (Admin Ability Required)](#update-a-role-admin-ability-required)
     - [Delete a Role (Admin Ability Required)](#delete-a-role-admin-ability-required)
+    - [List Available Roles of a User (Admin Ability Required)](#list-available-roles-of-a-user-admin-ability-required)
+    - [Assign a Role to a User (Admin Ability Required)](#assign-a-role-to-a-user-admin-ability-required)
 
 ## Getting Started
 
@@ -398,4 +400,109 @@ For any unsuccsesful attempt or wrong token, you will receive a 401 error respon
     "message": "Unauthenticated."
 }
 ```
+
+### List Available Roles of a User (Admin Ability Required)
+
+To list all available roles for a user, make an `HTTP GET` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call. Replace {userid} with an actual user id
+
+```shell
+http://localhost:8000/api/users/{userid}/roles
+```
+
+For example to get all roles assigned to the user with id 2, use this endpoint `http://localhost:8000/api/users/2/roles`
+
+**API Payload & Response**
+
+No payload is required for this call.
+
+For successful execution, you will get a JSON response containing the user with this updated role.
+
+```json
+{
+    "id": 2,
+    "name": "Test User",
+    "email": "test@hydra.project",
+    "email_verified_at": null,
+    "created_at": "2022-05-18T18:05:59.000000Z",
+    "updated_at": "2022-05-18T18:05:59.000000Z",
+    "roles": [
+        {
+            "id": 2,
+            "name": "User",
+            "slug": "user"
+        },
+        {
+            "id": 3,
+            "name": "Customer",
+            "slug": "customer"
+        }
+    ]
+}
+```
+
+For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### Assign a Role to a User (Admin Ability Required)
+
+To assign a role to a user, make an `HTTP POST` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call. Replace {userid} with an actual user id
+
+```shell
+http://localhost:8000/api/users/{userid}/roles
+```
+
+For example to assign a role the user with id 2, use this endpoint `http://localhost:8000/api/users/2/roles`
+
+**API Payload & Response**
+
+You need to supply `role_id` in your payload as Multipart Form or JSON data
+
+```json
+{
+    "role_id":3 
+}
+```
+
+For successful execution, you will get a JSON response containing the user with this updated role.
+
+```json
+{
+    "id": 2,
+    "name": "Test User",
+    "email": "test@hydra.project",
+    "email_verified_at": null,
+    "created_at": "2022-05-18T18:05:59.000000Z",
+    "updated_at": "2022-05-18T18:05:59.000000Z",
+    "roles": [
+        {
+            "id": 2,
+            "name": "User",
+            "slug": "user"
+        },
+        {
+            "id": 3,
+            "name": "Customer",
+            "slug": "customer"
+        }
+    ]
+}
+```
+
+Notice that user has a `Roles` array and this newly assigned role is present in this array.  
+
+Please note that if you assign the same `role` again to a user, it will have no effect.
+
+For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
 [Documentation In Progress...]
