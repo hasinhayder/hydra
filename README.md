@@ -17,6 +17,7 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
     - [User Registration](#user-registration)
     - [User Authentication/Login (Admin)](#user-authenticationlogin-admin)
     - [User Authentication/Login (Other Roles)](#user-authenticationlogin-other-roles)
+    - [Update a User (User/Admin Ability Required)](#update-a-user-useradmin-ability-required)
     - [Delete a User (Admin Ability Required)](#delete-a-user-admin-ability-required)
     - [List Roles (Admin Ability Required)](#list-roles-admin-ability-required)
     - [Add a New Role (Admin Ability Required)](#add-a-new-role-admin-ability-required)
@@ -217,9 +218,58 @@ For any unsuccsesful attempt, you will receive a 401 error response.
 }
 ```
 
+### Update a User (User/Admin Ability Required)
+
+To update an existing user, make a `HTTP PUT` request to the following route. Replace {userid} with actual user id. You must includ a Bearer token obtained from User/Admin authentication. A bearer admin token can update any user. A bearer user token can only update the authenticated user by this token.
+
+```shell
+http://localhost:8000/api/users/{userid}
+```
+
+For example to update the user with id 2, use this endpoint `http://localhost:8000/api/users/3`
+
+**API Payload & Response**
+
+You can include either `name` or `email`, or both in a URL Encoded Form Data or JSON payload, just like this
+
+```json
+{
+   "name":"Captain Cook",
+   "email":"captaincook@hydra.project"
+}
+```
+
+You will get a JSON response with user token. You need this user token for making any call to other routes protected by user ability.
+
+```json
+{
+   "id": 3,
+   "name": "Captain Cook X",
+   "email": "captaincook@hydra.project",
+}
+```
+
+For any unsuccsesful attempt with invalid token, you will receive a 401 error response.
+
+```json
+{
+    "error": 1,
+    "message": "invalid credentials"
+}
+```
+
+For any unsuccsesful attempt with invalid `user id`, you will receive a 404 not found error response. For example when you are trying to delete a non existing user with id 16, you will receive the following response. 
+
+```json
+{
+   "error": 1,
+   "message": "No query results for model [App\\Models\\User] 16"
+}
+```
+
 ### Delete a User (Admin Ability Required)
 
-To Delete an existing user, make a `HTTP DELETE` request to the following route. Replace {userid} with actual user id
+To delete an existing user, make a `HTTP DELETE` request to the following route. Replace {userid} with actual user id
 
 ```shell
 http://localhost:8000/api/users/{userid}
@@ -465,9 +515,6 @@ For successful execution, you will get a JSON response containing the user with 
     "id": 2,
     "name": "Test User",
     "email": "test@hydra.project",
-    "email_verified_at": null,
-    "created_at": "2022-05-18T18:05:59.000000Z",
-    "updated_at": "2022-05-18T18:05:59.000000Z",
     "roles": [
         {
             "id": 2,
@@ -518,9 +565,6 @@ For successful execution, you will get a JSON response containing the user with 
     "id": 2,
     "name": "Test User",
     "email": "test@hydra.project",
-    "email_verified_at": null,
-    "created_at": "2022-05-18T18:05:59.000000Z",
-    "updated_at": "2022-05-18T18:05:59.000000Z",
     "roles": [
         {
             "id": 2,
@@ -569,9 +613,6 @@ For successful execution, you will get a JSON response containing the user with 
     "id": 2,
     "name": "Test User",
     "email": "test@hydra.project",
-    "email_verified_at": null,
-    "created_at": "2022-05-18T18:05:59.000000Z",
-    "updated_at": "2022-05-18T18:05:59.000000Z",
     "roles": [
         {
             "id": 2,
