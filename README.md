@@ -23,6 +23,7 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
     - [Delete a Role (Admin Ability Required)](#delete-a-role-admin-ability-required)
     - [List Available Roles of a User (Admin Ability Required)](#list-available-roles-of-a-user-admin-ability-required)
     - [Assign a Role to a User (Admin Ability Required)](#assign-a-role-to-a-user-admin-ability-required)
+    - [Delete a Role from a User (Admin Ability Required)](#delete-a-role-from-a-user-admin-ability-required)
 
 ## Getting Started
 
@@ -456,7 +457,7 @@ To assign a role to a user, make an `HTTP POST` request to the following route, 
 http://localhost:8000/api/users/{userid}/roles
 ```
 
-For example to assign a role the user with id 2, use this endpoint `http://localhost:8000/api/users/2/roles`
+For example to assign a role to the user with id 2, use this endpoint `http://localhost:8000/api/users/2/roles`
 
 **API Payload & Response**
 
@@ -496,6 +497,50 @@ For successful execution, you will get a JSON response containing the user with 
 Notice that user has a `Roles` array and this newly assigned role is present in this array.  
 
 Please note that if you assign the same `role` again to a user, it will have no effect.
+
+For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+
+```json
+{
+    "message": "Unauthenticated."
+}
+```
+
+### Delete a Role from a User (Admin Ability Required)
+
+To delete a role from a user, make an `HTTP DELETE` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call. Replace `{userid}` with an actual user id, and `{role}` with an actual role id
+
+```shell
+http://localhost:8000/api/users/{userid}/roles/{role}
+```
+
+For example to delete a role with id 3 from the user with id 2, use this endpoint `http://localhost:8000/api/users/2/roles/3`
+
+**API Payload & Response**
+
+No payload is required for this call
+
+For successful execution, you will get a JSON response containing the user with this updated role.
+
+```json
+{
+    "id": 2,
+    "name": "Test User",
+    "email": "test@hydra.project",
+    "email_verified_at": null,
+    "created_at": "2022-05-18T18:05:59.000000Z",
+    "updated_at": "2022-05-18T18:05:59.000000Z",
+    "roles": [
+        {
+            "id": 2,
+            "name": "User",
+            "slug": "user"
+        },
+    ]
+}
+```
+
+Notice that user has a `Roles` array and the role with id 3 is not present in this array.  
 
 For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
 
