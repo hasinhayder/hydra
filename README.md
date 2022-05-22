@@ -234,8 +234,8 @@ You can include either `name` or `email`, or both in a URL Encoded Form Data or 
 
 ```json
 {
-   "name":"Captain Cook",
-   "email":"captaincook@hydra.project"
+    "name":"Captain Cook",
+    "email":"captaincook@hydra.project"
 }
 ```
 
@@ -243,9 +243,9 @@ You will get a JSON response with user token. You need this user token for makin
 
 ```json
 {
-   "id": 3,
-   "name": "Captain Cook X",
-   "email": "captaincook@hydra.project",
+    "id": 3,
+    "name": "Captain Cook",
+    "email": "captaincook@hydra.project",
 }
 ```
 
@@ -258,12 +258,21 @@ For any unsuccsesful attempt with invalid token, you will receive a 401 error re
 }
 ```
 
-For any unsuccsesful attempt with invalid `user id`, you will receive a 404 not found error response. For example when you are trying to delete a non existing user with id 16, you will receive the following response. 
+If a bearer user token attempts to update any other user but itself, a 409 error response will be relivered
 
 ```json
 {
-   "error": 1,
-   "message": "No query results for model [App\\Models\\User] 16"
+    "error": 1,
+    "message": "Not authorized"
+}
+```
+
+For any unsuccsesful attempt with invalid `user id`, you will receive a 404 not found error response. For example when you are trying to delete a non existing user with id 16, you will receive the following response.
+
+```json
+{
+    "error": 1,
+    "message": "No query results for model [App\\Models\\User] 16"
 }
 ```
 
