@@ -2,13 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
-class NewUserTest extends TestCase {
+class UserTest extends TestCase {
     /**
      * A basic feature test example.
      *
@@ -166,6 +168,40 @@ class NewUserTest extends TestCase {
         $this->user_id = $data->id;
 
         $target = User::where('email', 'test@test.com')->first();
+
+        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+            ->delete("/api/users/{$target->id}");
+
+        $response
+            ->assertJson(
+                fn (AssertableJson $json) =>
+                $json->where('error', 0)
+                    ->where('message', 'user deleted')
+            );
+    }
+
+    public function test_delete_admin_user_if_multiple_admins_are_present() {
+
+        $newAdminUser = User::create([
+            'name'=>'Test Admin',
+            'password'=>Hash::make('abcd'),
+            'email'=>'testadmin@test.com'
+        ]);
+
+        $adminRole = Role::find(1);
+
+        $newAdminUser->roles()->attach($adminRole);
+
+        $response = $this->postJson('/api/login', [
+            'email' => 'admin@hydra.project',
+            'password' => 'hydra'
+        ]);
+
+        $data = json_decode($response->getContent());
+        $this->token = $data->token;
+        $this->user_id = $data->id;
+
+        $target = User::where('email', 'testadmin@test.com')->first();
 
         $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
             ->delete("/api/users/{$target->id}");
