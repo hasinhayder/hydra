@@ -17,6 +17,7 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
     - [User Registration](#user-registration)
     - [User Authentication/Login (Admin)](#user-authenticationlogin-admin)
     - [User Authentication/Login (Other Roles)](#user-authenticationlogin-other-roles)
+    - [Delete a User (Admin Ability Required)](#delete-a-user-admin-ability-required)
     - [List Roles (Admin Ability Required)](#list-roles-admin-ability-required)
     - [Add a New Role (Admin Ability Required)](#add-a-new-role-admin-ability-required)
     - [Update a Role (Admin Ability Required)](#update-a-role-admin-ability-required)
@@ -213,6 +214,47 @@ For any unsuccsesful attempt, you will receive a 401 error response.
 {
     "error": 1,
     "message": "invalid credentials"
+}
+```
+
+### Delete a User (Admin Ability Required)
+
+To Delete an existing user, make a `HTTP DELETE` request to the following route. Replace {userid} with actual user id
+
+```shell
+http://localhost:8000/api/users/{userid}
+```
+
+For example to delete the user with id 2, use this endpoint `http://localhost:8000/api/users/2`
+
+**API Payload & Response**
+
+No payload is required for this call.
+
+You will get a JSON response with user token. You need this user token for making any call to other routes protected by user ability.
+
+```json
+{
+   "error": 0,
+   "message": "user deleted"
+}
+```
+
+For any unsuccsesful attempt with invalid token, you will receive a 401 error response.
+
+```json
+{
+    "error": 1,
+    "message": "invalid credentials"
+}
+```
+
+For any unsuccsesful attempt with invalid `user id`, you will receive a 404 not found error response. For example when you are trying to delete a non existing user with id 16, you will receive the following response. 
+
+```json
+{
+   "error": 1,
+   "message": "No query results for model [App\\Models\\User] 16"
 }
 ```
 
