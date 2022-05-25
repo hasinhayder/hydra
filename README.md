@@ -27,6 +27,9 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
     - [List Available Roles of a User (Admin Ability Required)](#list-available-roles-of-a-user-admin-ability-required)
     - [Assign a Role to a User (Admin Ability Required)](#assign-a-role-to-a-user-admin-ability-required)
     - [Delete a Role from a User (Admin Ability Required)](#delete-a-role-from-a-user-admin-ability-required)
+  - [Notes](#notes)
+    - [Default Role for New Users](#default-role-for-new-users)
+    - [Single Session or Multiple Session](#single-session-or-multiple-session)
 
 ## Getting Started
 
@@ -680,4 +683,11 @@ For any unsuccsesful attempt or wrong token, you will receive a 401 error respon
 }
 ```
 
-[Documentation In Progress...]
+## Notes
+
+### Default Role for New Users
+
+When a new user is created, the `user` role is aassigned to them. To change this behavior, open your `.env` file and set the value of `DEFAULT_ROLE_ID` to any existing role id and newly created users will have that role by default. For example, if you want your new users to have a `customer` role, set `DEFAULT_ROLE_ID=3` in your `.env` file.
+
+### Single Session or Multiple Session
+When a user authenticates, Hydra doesn't invalidate the previously issued access token. So, all access tokens including the newly created token will remain balid. If you want to change this behavior and delete all previous tokens when a user authenticates, set `DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN` to `true`. The value of `DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN` is `false` by default.
