@@ -17,6 +17,7 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
     - [User Registration](#user-registration)
     - [User Authentication/Login (Admin)](#user-authenticationlogin-admin)
     - [User Authentication/Login (Other Roles)](#user-authenticationlogin-other-roles)
+    - [List Users (Admin Ability Required)](#list-users-admin-ability-required)
     - [Update a User (User/Admin Ability Required)](#update-a-user-useradmin-ability-required)
     - [Delete a User (Admin Ability Required)](#delete-a-user-admin-ability-required)
     - [List Roles (Admin Ability Required)](#list-roles-admin-ability-required)
@@ -215,6 +216,43 @@ For any unsuccsesful attempt, you will receive a 401 error response.
 {
     "error": 1,
     "message": "invalid credentials"
+}
+```
+
+### List Users (Admin Ability Required)
+
+To list the users, make an `HTTP GET` call to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call.
+
+```shell
+http://localhost:8000/api/users
+```
+
+**API Payload & Response**
+
+No payload required for this call.
+
+You will get a JSON response with all users available in your project.
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Hydra Admin",
+        "email": "admin@hydra.project"
+    },
+    {
+        "id": 2,
+        "name": "Test User",
+        "email": "test@hydra.project"
+    },
+]
+```
+
+For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+
+```json
+{
+    "message": "Unauthenticated."
 }
 ```
 
