@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Option;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
@@ -55,7 +54,7 @@ class UserController extends Controller {
             'name' => $creds['name']
         ]);
 
-        $default_user_role_id = Option::where('key', 'default_role_id')->first()->value;
+        $default_user_role_id = env('DEFAULT_ROLE_ID', 2);
         UserRole::create([
             'user_id' => $user->id,
             'role_id' => $default_user_role_id
@@ -82,7 +81,7 @@ class UserController extends Controller {
             return response(['error' => 1, 'message' => 'invalid credentials'], 401);
         }
 
-        if (Option::where('key', 'single_session')->first()->value == '1') {
+        if (env('DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN', false) == true) {
             $user->tokens()->delete();
         }
 
@@ -153,7 +152,7 @@ class UserController extends Controller {
      */
     public function destroy(User $user) {
 
-        $adminRole = Role::where('slug','admin')->first();
+        $adminRole = Role::where('slug', 'admin')->first();
         $userRoles = $user->roles;
 
         if ($userRoles->contains($adminRole)) {
