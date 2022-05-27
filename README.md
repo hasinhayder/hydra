@@ -853,13 +853,13 @@ Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctu
 ```
 
 Now only a `HTTP GET` call with a valide admin user's access token can access this route. 
-If you want this route to be accessible by the users with `admin`, and the `user` role, then modify it like this. 
+If you want this route to be accessible by the users with `admin`, **or** the `user` role, then modify it like this. 
 
 ```php
 Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum', 'ability:admin,user']);
 ```
 
-If you want this route to be accessible by the users with both `user`, and the `customer` role, then modify it like this.
+If you want this route to be accessible by the users with both `user`, **and** the `customer` role, then modify it like this.
 
 ```php
 Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum', 'abilities:customer,user']);
