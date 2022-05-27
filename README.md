@@ -734,7 +734,7 @@ So you decided to give Hydra a try and create a new protected API endpoint, that
 You can create a normal or a resourceful controller. To keep it simple, I am going with a normal controller. 
 
 ```shell
-php artisan make:controller MessageControler
+php artisan make:controller MessageController
 ```
 
 This will create a new file called `app/Http/Controlers/MessageController.php`
@@ -752,7 +752,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class MessageControler extends Controller
+class MessageController extends Controller
 {
     public function greet(Request $request){
         $user = $request->user();
@@ -776,7 +776,7 @@ Let's create a protected route `http://localhost:8000/api/greet` to use this API
 Open your `routes/api.php` file and add the following line at the end
 
 ```php
-Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum']);
+Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum']);
 ```
 
 Nice! Now we have a route `/api/greet` that is only accessible with a valid bearer token.
@@ -824,7 +824,7 @@ Now let's test our protected route. Add this bearer token in your PostMan/Insomn
 curl --request GET \
   --url http://localhost:8000/api/greet \
   --header 'Accept: application/json' \
-  --header 'Authorization: Bearer 4|uLzGKpLW3xDrWlbERHl39oJLs0kqlq2cgdSHJ1UL'
+  --header 'Authorization: Bearer 5|gbiWdd7yJFYiTIgoK1jK3C7HZJtJUK1PnBIToBLN'
 ```
 
 The response will be something like this
@@ -843,26 +843,26 @@ Great! you have learned how to create your protected API endpoint using Laravel 
 Let's make our newly created API endpoint even more robust. Say, we want our route to be accessble by only admin users. Remember you added the following line in `routes/api.php` file just a couple of minutes ago? Let's change it
 
 ```php
-Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum']);
+Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum']);
 ```
 
 Change it like this
 
 ```php
-Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum', 'ability:admin']);
+Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'ability:admin']);
 ```
 
 Now only a `HTTP GET` call with a valide admin user's access token can access this route. 
 If you want this route to be accessible by the users with `admin`, **or** the `user` role, then modify it like this. 
 
 ```php
-Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum', 'ability:admin,user']);
+Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'ability:admin,user']);
 ```
 
 If you want this route to be accessible by the users with both `user`, **and** the `customer` role, then modify it like this.
 
 ```php
-Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum', 'abilities:customer,user']);
+Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'abilities:customer,user']);
 ```
 
 Note that this time we have used the `abilities` keyword instead of `ability`
