@@ -41,13 +41,20 @@ It's super easy to get Hydra up and running.
 git clone https://github.com/hasinhayder/hydra.git
 ```
 
-2. Copy `.env.example` to `.env`
+2. install the dependencies
+
+```shell
+cd hydra
+composer install
+```
+
+3. Copy `.env.example` to `.env`
 
 ```shell
 cp .env.example .env
 ```
 
-3. Start the webserver
+4. Start the webserver
 
 ```shell
 php artisan serve
