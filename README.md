@@ -30,6 +30,13 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
   - [Notes](#notes)
     - [Default Role for New Users](#default-role-for-new-users)
     - [Single Session or Multiple Session](#single-session-or-multiple-session)
+    - [Add `Accept: application/json` Header In Your API Calls](#add-accept-applicationjson-header-in-your-api-calls)
+  - [Tutorial](#tutorial)
+    - [Create a New API Controller](#create-a-new-api-controller)
+    - [Add a Function](#add-a-function)
+    - [Create Protected Routes](#create-protected-routes)
+    - [Test Protected Routes](#test-protected-routes)
+    - [Protect a Route with Laravel Sanctum's Ability and Abilities Middleware](#protect-a-route-with-laravel-sanctums-ability-and-abilities-middleware)
 
 ## Getting Started
 
@@ -697,4 +704,167 @@ For any unsuccsesful attempt or wrong token, you will receive a 401 error respon
 When a new user is created, the `user` role is aassigned to them. To change this behavior, open your `.env` file and set the value of `DEFAULT_ROLE_ID` to any existing role id and newly created users will have that role by default. For example, if you want your new users to have a `customer` role, set `DEFAULT_ROLE_ID=3` in your `.env` file.
 
 ### Single Session or Multiple Session
+
 When a user authenticates, Hydra doesn't invalidate the previously issued access token. So, all access tokens including the newly created token will remain balid. If you want to change this behavior and delete all previous tokens when a user authenticates, set `DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN` to `true` in your `.env` file. The value of `DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN` is set to `false` by default.
+
+### Add `Accept: application/json` Header In Your API Calls
+
+This is very important. To properly receive JSON responses, definitely add the following header to your API requests. 
+
+```
+Accept: application/json
+```
+
+For example, if you are using `curl` you can make a call like this 
+
+```shell
+curl --request GET \
+  --url http://localhost:8000/hydra/version \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data =
+```
+
+## Tutorial
+
+So you decided to give Hydra a try and create a new protected API endpoint, that's awesome, let's dive in. 
+
+### Create a New API Controller
+
+You can create a normal or a resourceful controller. To keep it simple, I am going with a normal controller. 
+
+```shell
+php artisan make:controller MessageControler
+```
+
+This will create a new file called `app/Http/Controlers/MessageController.php`
+
+### Add a Function
+
+We are going to add a simple function that will greet the authenticated user. Since this will be protected using Sanctum middleware, only a request with a valid bearer token will be able to access this endpoint. You don't need to worry about anything else.
+
+Open this file `app/Http/Controlers/MessageController.php` and add the following code
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class MessageControler extends Controller
+{
+    public function greet(Request $request){
+        $user = $request->user();
+
+        $response = [
+            "name"=>$user->name,
+            "role"=>$user->roles()->first()->name
+        ];
+
+        return $response;
+
+    }
+}
+
+```
+
+### Create Protected Routes
+
+Let's create a protected route `http://localhost:8000/api/greet` to use this API
+
+Open your `routes/api.php` file and add the following line at the end
+
+```php
+Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum']);
+```
+
+Nice! Now we have a route `/api/greet` that is only accessible with a valid bearer token.
+
+### Test Protected Routes
+
+If you have already created a user then you need his accessToken first, or you can use the admin user or you can simply create a new user and then login and note his/her bearer token. To create or authenticate a user, check the documentation in the beginning.
+
+To create a new user you can place a curl request or use tools like Postman, Insomnia or HTTPie. Here is a quick example using curl.
+
+```shell
+curl --request POST \
+  --url http://localhost:8000/api/users \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: multipart/form-data; boundary=---011000010111000001101001' \
+  --form 'name=Hydra User' \
+  --form email=user@hydra.project \
+  --form 'password=Surprisingly A Good Password'
+```
+
+Great! now we have our user. Let's login as this new user using curl (You can use tools like Postman, Insomnia or HTTPie)
+
+```shell
+curl --request POST \
+  --url http://localhost:8000/api/login \
+  --header 'Accept: aplication/json' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "email":"user@hydra.project",
+    "password":"Surprisingly A Good Password"
+}'
+```
+
+Now you have this user's accessToken in the response, as shown below. Note it.
+
+```javascript
+{"error":0,"id":2,"token":"5|gbiWdd7yJFYiTIgoK1jK3C7HZJtJUK1PnBIToBLN"}
+```
+
+The bearer token for this user is `5|gbiWdd7yJFYiTIgoK1jK3C7HZJtJUK1PnBIToBLN`
+
+Now let's test our protected route. Add this bearer token in your PostMan/Insomnia/HTTPie or Curl call and make a `HTTP GET` request to our newly created protected route `http://localhost:8000/api/greet` . Here's an example call with curl
+
+```shell
+curl --request GET \
+  --url http://localhost:8000/api/greet \
+  --header 'Accept: application/json' \
+  --header 'Authorization: Bearer 4|uLzGKpLW3xDrWlbERHl39oJLs0kqlq2cgdSHJ1UL'
+```
+
+The response will be something like this
+
+```javascript
+{
+    "name": "user@hydra.project",
+    "role": "User"
+}
+```
+
+Great! you have learned how to create your protected API endpoint using Laravel Sanctum and Hydra!
+
+### Protect a Route with Laravel Sanctum's Ability and Abilities Middleware
+
+Let's make our newly created API endpoint even more robust. Say, we want our route to be accessble by only admin users. Remember you added the following line in `routes/api.php` file just a couple of minutes ago? Let's change it
+
+```php
+Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum']);
+```
+
+Change it like this
+
+```php
+Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum', 'ability:admin']);
+```
+
+Now only a `HTTP GET` call with a valide admin user's access token can access this route. 
+If you want this route to be accessible by the users with `admin`, and the `user` role, then modify it like this. 
+
+```php
+Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum', 'ability:admin,user']);
+```
+
+If you want this route to be accessible by the users with both `user`, and the `customer` role, then modify it like this.
+
+```php
+Route::get('greet', [MessageControler::class,'greet'])->middleware(['auth:sanctum', 'abilities:customer,user']);
+```
+
+Note that this time we have used the `abilities` keyword instead of `ability`
+
+Great, now you know everything to start creating your next big API project with Laravel & Laravel Sanctum using our powerful boilerplate project called Hydra. Enjoy!
