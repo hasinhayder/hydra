@@ -759,7 +759,7 @@ class MessageControler extends Controller
 
         $response = [
             "name"=>$user->name,
-            "role"=>$user->roles()->first()->name
+            "role"=>$user->roles()->first()->name //or $user->roles()->first()->slug
         ];
 
         return $response;
