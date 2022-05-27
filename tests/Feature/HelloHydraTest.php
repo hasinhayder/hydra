@@ -31,7 +31,7 @@ class HelloHydraTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'message' => true,
+                'version' => true,
             ]);
     }
 }
