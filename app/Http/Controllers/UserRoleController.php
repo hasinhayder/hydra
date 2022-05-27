@@ -18,16 +18,6 @@ class UserRoleController extends Controller {
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function create(User $user) {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -44,41 +34,7 @@ class UserRoleController extends Controller {
             return $user->load('roles');
         } else {
             return $user->load('roles');
-            // return response(['error' => 1, 'message' => 'user already has this role'], 409);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user, Role $role) {
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user, Role $role) {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user, Role $role) {
-        //
     }
 
     /**
@@ -89,9 +45,7 @@ class UserRoleController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user, Role $role) {
-        //this relationship exists
         $user->roles()->detach($role);
         return $user->load('roles');
-        // return response(['error' => 0, 'message' => 'role has been removed from this user'], 409);
     }
 }
