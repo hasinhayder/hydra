@@ -6,14 +6,16 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class UserRoleController extends Controller {
+class UserRoleController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user) {
+    public function index(User $user)
+    {
         return $user->load('roles');
     }
 
@@ -24,13 +26,15 @@ class UserRoleController extends Controller {
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, User $user) {
+    public function store(Request $request, User $user)
+    {
         $data = $request->validate([
-            'role_id' => 'required|integer'
+            'role_id' => 'required|integer',
         ]);
         $role = Role::find($data['role_id']);
-        if (!$user->roles()->find($data['role_id'])) {
+        if (! $user->roles()->find($data['role_id'])) {
             $user->roles()->attach($role);
+
             return $user->load('roles');
         } else {
             return $user->load('roles');
@@ -44,8 +48,10 @@ class UserRoleController extends Controller {
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user, Role $role) {
+    public function destroy(User $user, Role $role)
+    {
         $user->roles()->detach($role);
+
         return $user->load('roles');
     }
 }

@@ -4,19 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Validation\ValidationException;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\UserRole;
 use Laravel\Sanctum\Exceptions\MissingAbilityException;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         //
         return User::all();
     }
@@ -27,11 +28,12 @@ class UserController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $creds = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'name' => 'nullable|string'
+            'name' => 'nullable|string',
         ]);
 
         $user = User::where('email', $creds['email'])->first();
@@ -42,13 +44,13 @@ class UserController extends Controller {
         $user = User::create([
             'email' => $creds['email'],
             'password' => Hash::make($creds['password']),
-            'name' => $creds['name']
+            'name' => $creds['name'],
         ]);
 
         $default_user_role_id = env('DEFAULT_ROLE_ID', 2);
         UserRole::create([
             'user_id' => $user->id,
-            'role_id' => $default_user_role_id
+            'role_id' => $default_user_role_id,
         ]);
 
 
@@ -61,14 +63,15 @@ class UserController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         $creds = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
         $user = User::where('email', $creds['email'])->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return response(['error' => 1, 'message' => 'invalid credentials'], 401);
         }
 
@@ -77,13 +80,14 @@ class UserController extends Controller {
         }
 
 
-        $roles =  $user->roles()->get();
+        $roles = $user->roles()->get();
         $_roles = [];
         foreach ($roles as $role) {
             $_roles[] = $role->slug;
         }
 
         $plainTextToken = $user->createToken('hydra-api-token', $_roles)->plainTextToken;
+
         return response(['error' => 0, 'id' => $user->id, 'token' => $plainTextToken], 200);
     }
 
@@ -93,7 +97,8 @@ class UserController extends Controller {
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user) {
+    public function show(User $user)
+    {
         return $user;
     }
 
@@ -104,10 +109,11 @@ class UserController extends Controller {
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user) {
+    public function update(Request $request, User $user)
+    {
         $user->name = $request->name ?? $user->name;
         $user->email = $request->email ?? $user->email;
-        $user->password = $request->password ?  Hash::make($request->password) : $user->password;
+        $user->password = $request->password ? Hash::make($request->password) : $user->password;
         $user->email_verified_at = $request->email_verified_at ?? $user->email_verified_at;
 
         //check if the logged in user is updating it's own record
@@ -116,7 +122,7 @@ class UserController extends Controller {
         $loggedInUser = $request->user();
         if ($loggedInUser->id == $user->id) {
             $user->update();
-        } else if ($loggedInUser->tokenCan('admin') || $loggedInUser->tokenCan('super-admin')) {
+        } elseif ($loggedInUser->tokenCan('admin') || $loggedInUser->tokenCan('super-admin')) {
             $user->update();
         } else {
             throw new MissingAbilityException("Not Authorized");
@@ -131,14 +137,14 @@ class UserController extends Controller {
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user) {
-
+    public function destroy(User $user)
+    {
         $adminRole = Role::where('slug', 'admin')->first();
         $userRoles = $user->roles;
 
         if ($userRoles->contains($adminRole)) {
             //the current user is admin, then if there is only one admin - don't delete
-            $numberOfAdmins =  Role::where('slug', 'admin')->first()->users()->count();
+            $numberOfAdmins = Role::where('slug', 'admin')->first()->users()->count();
             if (1 == $numberOfAdmins) {
                 return response(['error' => 1, 'message' => 'Create another admin before deleting this only admin user'], 409);
             }
@@ -149,7 +155,8 @@ class UserController extends Controller {
         return response(['error' => 0, 'message' => 'user deleted']);
     }
 
-    public function me(Request $request) {
+    public function me(Request $request)
+    {
         return $request->user();
     }
 }

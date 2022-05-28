@@ -7,7 +7,8 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Laravel\Sanctum\Exceptions\MissingAbilityException;
 use Throwable;
 
-class Handler extends ExceptionHandler {
+class Handler extends ExceptionHandler
+{
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -42,26 +43,29 @@ class Handler extends ExceptionHandler {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->reportable(function (Throwable $e) {
             //
         });
     }
 
-    public function render($request, Throwable $exception) {
+    public function render($request, Throwable $exception)
+    {
         if ($exception instanceof ModelNotFoundException) {
             return response([
-                'error'=>1,
-                'message'=>$exception->getMessage()
-            ],404);
+                'error' => 1,
+                'message' => $exception->getMessage(),
+            ], 404);
         }
 
         if ($exception instanceof MissingAbilityException) {
             return response([
-                'error'=>1,
-                'message'=>"Not authorized"
-            ],409);
+                'error' => 1,
+                'message' => "Not authorized",
+            ], 409);
         }
+
         return parent::render($request, $exception);
     }
 }

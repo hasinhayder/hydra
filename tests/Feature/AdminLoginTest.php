@@ -2,11 +2,8 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
-
+use Tests\TestCase;
 
 class AdminLoginTest extends TestCase
 {
@@ -17,13 +14,14 @@ class AdminLoginTest extends TestCase
      */
     public function test_admin_login()
     {
-        $response = $this->postJson('/api/login',[
-            'email'=>'admin@hydra.project',
-            'password'=>'hydra'
+        $response = $this->postJson('/api/login', [
+            'email' => 'admin@hydra.project',
+            'password' => 'hydra',
         ]);
 
         $response
-        ->assertJson(fn (AssertableJson $json) =>
+        ->assertJson(
+            fn (AssertableJson $json) =>
             $json->where('error', 0)
                  ->has('token')
                  ->etc()
@@ -32,13 +30,14 @@ class AdminLoginTest extends TestCase
 
     public function test_admin_login_fail()
     {
-        $response = $this->postJson('/api/login',[
-            'email'=>'admin@hydra.project',
-            'password'=>'hydrax'
+        $response = $this->postJson('/api/login', [
+            'email' => 'admin@hydra.project',
+            'password' => 'hydrax',
         ]);
 
         $response
-        ->assertJson(fn (AssertableJson $json) =>
+        ->assertJson(
+            fn (AssertableJson $json) =>
             $json->where('error', 1)
                  ->missing('token')
                  ->has('message')
