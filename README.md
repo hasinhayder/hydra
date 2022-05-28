@@ -10,6 +10,7 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
 
 - [Hydra - Zero Config API Boilerplate with Laravel Sanctum](#hydra---zero-config-api-boilerplate-with-laravel-sanctum)
   - [Getting Started](#getting-started)
+    - [Screencast](#screencast)
   - [Database Migration and Seeding](#database-migration-and-seeding)
   - [List of Default Routes](#list-of-default-routes)
   - [Default Roles](#default-roles)
@@ -67,7 +68,11 @@ cp .env.example .env
 php artisan serve
 ```
 
-That's mostly it! You have a fully running laravel installation with Sanctum, all configured.
+That's mostly it! You have a fully running laravel installation with Sanctum, all configured. 
+
+### Screencast
+
+[![asciicast](https://asciinema.org/a/497775.svg)](https://asciinema.org/a/497775)
 
 ## Database Migration and Seeding
 
