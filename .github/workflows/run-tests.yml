@@ -34,5 +34,17 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "symfony/console:>=4.3.4" "mockery/mockery:^1.3.2" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
+      - name: Create Environment file and generate app key
+        run: |
+          cp .env.example .env
+
+          php artisan key:generate
+
+      - name: Create database and run migration
+        run: |
+        touch database/hydra.sqlite
+        php artisan migrate
+        php artisan db:seed
+
       - name: Execute tests
         run: vendor/bin/phpunit
