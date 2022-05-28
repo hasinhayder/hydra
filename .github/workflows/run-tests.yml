@@ -42,9 +42,9 @@ jobs:
 
       - name: Create database and run migration
         run: |
-        touch database/hydra.sqlite
-        php artisan migrate
-        php artisan db:seed
+          touch database/hydra.sqlite
+          php artisan migrate
+          php artisan db:seed
 
       - name: Execute tests
         run: vendor/bin/phpunit
