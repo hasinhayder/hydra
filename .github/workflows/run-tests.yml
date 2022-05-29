@@ -25,7 +25,7 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer update --ignore-platform-reqs
+        run: composer install
 
       - name: Create Environment file and generate app key
         run: |
