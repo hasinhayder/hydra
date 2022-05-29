@@ -316,7 +316,7 @@ You can include `name` or `email`, or both in a URL Encoded Form Data or JSON pa
 }
 ```
 
-You will get a JSON response with user token. You need this user token for making any calls to other routes protected by user ability.
+You will receive the updated user if the bearer token is valid.
 
 ```json
 {
@@ -367,7 +367,7 @@ For example to delete the user with id 2, use this endpoint `http://localhost:80
 
 No payload is required for this call.
 
-You will get a JSON response with user token. You need this user token for making any call to other routes protected by user ability.
+If the request is successful and the bearer token is valid, you will receive a JSON response like this
 
 ```json
 {

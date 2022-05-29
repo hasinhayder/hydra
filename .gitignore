@@ -14,3 +14,4 @@ yarn-error.log
 /.vscode
 database.sqlite
 .DS_Store
+composer.lock
