@@ -14,16 +14,17 @@ class RoleSeeder extends Seeder {
      * @return void
      */
     public function run() {
+        $roles = [
+            ['name' => 'Administrator', 'slug' => 'admin'],
+            ['name' => 'User', 'slug' => 'user'],
+            ['name' => 'Customer', 'slug' => 'customer'],
+            ['name' => 'Editor', 'slug' => 'editor'],
+            ['name' => 'All', 'slug' => '*'],
+            ['name' => 'Super Admin', 'slug' => 'super-admin'],
+        ];
         DB::table('roles')->truncate();
-        Role::insert(
-            [
-                ['name' => 'Administrator', 'slug' => 'admin'],
-                ['name' => 'User', 'slug' => 'user'],
-                ['name' => 'Customer', 'slug' => 'customer'],
-                ['name' => 'Editor', 'slug' => 'editor'],
-                ['name' => 'All', 'slug' => '*'],
-                ['name' => 'Super Admin', 'slug' => 'super-admin'],
-            ]
-        );
+        collect($roles)->each(function($role){
+            Role::create($role);
+        });
     }
 }
