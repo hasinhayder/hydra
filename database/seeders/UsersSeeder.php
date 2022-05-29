@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -21,7 +22,9 @@ class UsersSeeder extends Seeder
         User::create([
             'email'=>'admin@hydra.project',
             'password'=>Hash::make('hydra'),
-            'name'=>'Hydra Admin'
+            'name'=>'Hydra Admin',
+            'created_at'=> Carbon::now(),
+            'updated_at'=> Carbon::now(),
         ]);
     }
 }
