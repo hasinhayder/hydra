@@ -86,8 +86,18 @@ touch database/hydra.sqlite
 
 Or simply create a new file as **hydra.sqlite** inside your **database** folder.
 
+2. you can run both migrations and seeders together by simply running the following command
 
-2. Run migration
+```shell
+php artisan migrate:fresh --seed
+```
+
+**OR** 
+
+
+you can run them separately using the following commands
+
+2. Run Migrations
 
 ```shell
 php artisan migrate:fresh
@@ -95,18 +105,12 @@ php artisan migrate:fresh
 
 Now your database has essential tables for user and roles management.
 
-3. Database Seeding
+3. Run Database Seeders
 
 Run `db:seed`, and you have your first admin user, some essential roles in the roles table, and the relationship correctly setup.
 
 ```shell
 php artisan db:seed
-```
-
-or you can simply run migrations and seeders together by running the following command
-
-```shell
-php artisan migrate:fresh --seed
 ```
 
 Please note that the default admin user is **admin@hydra.project** and the default password is **hydra**. You should create a new admin user before deploying to production and delete this default admin user. You can do that using the available Hydra user management API or any DB management tool.
@@ -864,14 +868,14 @@ Change it like this
 Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'ability:admin']);
 ```
 
-Only an `HTTP GET` call with a valid admin user's access token can access this route. 
-If you want this route to be accessible by the users with `admin`, **or** the `user` role, then modify it. 
+Only an `HTTP GET` call with a valid admin user's access token can access this route.
+If you want this route to be accessible by the users with `admin`, **OR** the `user` role, then modify it.
 
 ```php
 Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'ability:admin,user']);
 ```
 
-If you want this route to be accessible by the users with both `user`, **and** the `customer` role, then modify it.
+If you want this route to be accessible by the users with both `user`, **AND** the `customer` role, then modify it.
 
 ```php
 Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'abilities:customer,user']);
