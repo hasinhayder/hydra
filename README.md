@@ -86,10 +86,11 @@ touch database/hydra.sqlite
 
 Or simply create a new file as **hydra.sqlite** inside your **database** folder.
 
+
 2. Run migration
 
 ```shell
-php artisan migrate
+php artisan migrate:fresh
 ```
 
 Now your database has essential tables for user and roles management.
@@ -100,6 +101,12 @@ Run `db:seed`, and you have your first admin user, some essential roles in the r
 
 ```shell
 php artisan db:seed
+```
+
+or you can simply run migrations and seeders together by running the following command
+
+```shell
+php artisan migrate:fresh --seed
 ```
 
 Please note that the default admin user is **admin@hydra.project** and the default password is **hydra**. You should create a new admin user before deploying to production and delete this default admin user. You can do that using the available Hydra user management API or any DB management tool.
