@@ -78,7 +78,7 @@ That's mostly it! You have a fully running laravel installation with Sanctum, al
 
 Open your `.env` file and change the DATABASE options. You can start with SQLite by following these steps
 
-1. Create a new sqlite database
+1. Create a new SQLite database
 
 ```shell
 touch database/hydra.sqlite
@@ -96,13 +96,13 @@ Now your database has essential tables for user and roles management.
 
 3. Database Seeding
 
-Run `db:seed`, and you have your first admin user, some essential roles in the roles table and the relationship properly setup.
+Run `db:seed`, and you have your first admin user, some essential roles in the roles table, and the relationship correctly setup.
 
 ```shell
 php artisan db:seed
 ```
 
-Please note that the default admin user is **admin@hydra.project** and default password is **hydra**. You should create a new admin user before deploying to production and delete this default admin user. You can do that using available Hydra user management API, or using any DB management tool.
+Please note that the default admin user is **admin@hydra.project** and the default password is **hydra**. You should create a new admin user before deploying to production and delete this default admin user. You can do that using the available Hydra user management API or any DB management tool.
 
 ## List of Default Routes
 
@@ -116,7 +116,7 @@ php artisan route:list
 
 ## Default Roles
 
-Hydra comes with these `super-admin`,`admin`,`editor`,`customer` & `user` roles out of the box. For details, open the roles table after database seeding, or simply open laravel tinker and experiment with `Role` model
+Hydra comes with these `super-admin`,`admin`,`editor`,`customer` & `user` roles out of the box. For details, open the roles table after database seeding, or open the laravel tinker and experiment with the `Role` model.
 
 ```shell
 php artisan tinker
@@ -138,7 +138,7 @@ Let's have a look at what Hydra has to offer. Before experimenting with the foll
 
 ### User Registration
 
-You can make an `HTTP POST` call to the following endpoint to create/register a new user. newly created user will have the `user` role by default.
+You can make an `HTTP POST` call to create/register a new user to the following endpoint. Newly created users will have the `user` role by default.
 
 ```shell
 http://localhost:8000/api/users
@@ -146,7 +146,7 @@ http://localhost:8000/api/users
 
 **API Payload & Response**
 
-You can send a Form Multipart payload or a JSON payload like this
+You can send a Form Multipart payload or a JSON payload like this.
 
 ```json
 {
@@ -156,7 +156,7 @@ You can send a Form Multipart payload or a JSON payload like this
 }
 ```
 
-Voila! your user has been created and is now ready to login!
+Voila! Your user has been created and is now ready to log in!
 
 If this user already exists, then you will receive a 409 Response like this
 
@@ -169,7 +169,7 @@ If this user already exists, then you will receive a 409 Response like this
 
 ### User Authentication/Login (Admin)
 
-Remember Hydra comes with the default admin user? You can login as an admin by making an HTTP POST call to the folllowing route
+Remember Hydra comes with the default admin user? You can log in as an admin by making an HTTP POST call to the following route.
 
 ```shell
 http://localhost:8000/api/login
@@ -177,7 +177,7 @@ http://localhost:8000/api/login
 
 **API Payload & Response**
 
-You can send a Form Multipart or a JSON payload like this
+You can send a Form Multipart or a JSON payload like this.
 
 ```json
 {
@@ -195,7 +195,7 @@ You will get a JSON response with user token. You need this admin token for maki
 }
 ```
 
-For any unsuccsesful attempt, you will receive a 401 error response.
+For any unsuccessful attempt, you will receive a 401 error response.
 
 ```json
 {
@@ -206,7 +206,7 @@ For any unsuccsesful attempt, you will receive a 401 error response.
 
 ### User Authentication/Login (Other Roles)
 
-You can login as a user by making an HTTP POST call to the folllowing route
+You can log in as a user by making an HTTP POST call to the following route
 
 ```shell
 http://localhost:8000/api/login
@@ -223,7 +223,7 @@ You can send a Form Multipart or a JSON payload like this
 }
 ```
 
-You will get a JSON response with user token. You need this user token for making any call to other routes protected by user ability.
+You will get a JSON response with user token. You need this user token for making any calls to other routes protected by user ability.
 
 ```json
 {
@@ -232,7 +232,7 @@ You will get a JSON response with user token. You need this user token for makin
 }
 ```
 
-For any unsuccsesful attempt, you will receive a 401 error response.
+For any unsuccessful attempt, you will receive a 401 error response.
 
 ```json
 {
@@ -251,7 +251,7 @@ http://localhost:8000/api/users
 
 **API Payload & Response**
 
-No payload required for this call.
+No payload is required for this call.
 
 You will get a JSON response with all users available in your project.
 
@@ -270,7 +270,7 @@ You will get a JSON response with all users available in your project.
 ]
 ```
 
-For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+For any unsuccessful attempt or wrong token, you will receive a 401 error response.
 
 ```json
 {
@@ -280,17 +280,17 @@ For any unsuccsesful attempt or wrong token, you will receive a 401 error respon
 
 ### Update a User (User/Admin Ability Required)
 
-To update an existing user, make a `HTTP PUT` request to the following route. Replace {userid} with actual user id. You must includ a Bearer token obtained from User/Admin authentication. A bearer admin token can update any user. A bearer user token can only update the authenticated user by this token.
+Make an `HTTP PUT` request to the following route to update an existing user. Replace {userid} with actual user id. You must include a Bearer token obtained from User/Admin authentication. A bearer admin token can update any user. A bearer user token can only update the authenticated user by this token.
 
 ```shell
 http://localhost:8000/api/users/{userid}
 ```
 
-For example to update the user with id 2, use this endpoint `http://localhost:8000/api/users/3`
+For example, to update the user with id 2, use this endpoint `http://localhost:8000/api/users/3`
 
 **API Payload & Response**
 
-You can include either `name` or `email`, or both in a URL Encoded Form Data or JSON payload, just like this
+You can include `name` or `email`, or both in a URL Encoded Form Data or JSON payload, just like this
 
 ```json
 {
@@ -299,7 +299,7 @@ You can include either `name` or `email`, or both in a URL Encoded Form Data or 
 }
 ```
 
-You will get a JSON response with user token. You need this user token for making any call to other routes protected by user ability.
+You will get a JSON response with user token. You need this user token for making any calls to other routes protected by user ability.
 
 ```json
 {
@@ -309,7 +309,7 @@ You will get a JSON response with user token. You need this user token for makin
 }
 ```
 
-For any unsuccsesful attempt with invalid token, you will receive a 401 error response.
+For any unsuccessful attempt with an invalid token, you will receive a 401 error response.
 
 ```json
 {
@@ -318,7 +318,7 @@ For any unsuccsesful attempt with invalid token, you will receive a 401 error re
 }
 ```
 
-If a bearer user token attempts to update any other user but itself, a 409 error response will be relivered
+If a bearer user token attempts to update any other user but itself, a 409 error response will be delivered
 
 ```json
 {
@@ -327,7 +327,7 @@ If a bearer user token attempts to update any other user but itself, a 409 error
 }
 ```
 
-For any unsuccsesful attempt with invalid `user id`, you will receive a 404 not found error response. For example when you are trying to delete a non existing user with id 16, you will receive the following response.
+For any unsuccessful attempt with an invalid `user id`, you will receive a 404 not found error response. For example, when you are trying to delete a non-existing user with id 16, you will receive the following response.
 
 ```json
 {
@@ -359,7 +359,7 @@ You will get a JSON response with user token. You need this user token for makin
 }
 ```
 
-For any unsuccsesful attempt with invalid token, you will receive a 401 error response.
+You will receive a 401 error response for any unsuccessful attempt with an invalid token.
 
 ```json
 {
@@ -368,7 +368,7 @@ For any unsuccsesful attempt with invalid token, you will receive a 401 error re
 }
 ```
 
-For any unsuccsesful attempt with invalid `user id`, you will receive a 404 not found error response. For example when you are trying to delete a non existing user with id 16, you will receive the following response. 
+For any unsuccessful attempt with an invalid `user id`, you will receive a 404 not found error response. For example, you will receive the following response when you try to delete a non-existing user with id 16. 
 
 ```json
 {
@@ -387,7 +387,7 @@ http://localhost:8000/api/roles
 
 **API Payload & Response**
 
-No payload required for this call.
+No payload is required for this call.
 
 You will get a JSON response with all the roles available in your project.
 
@@ -426,7 +426,7 @@ You will get a JSON response with all the roles available in your project.
 ]
 ```
 
-For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+For any unsuccessful attempt or wrong token, you will receive a 401 error response.
 
 ```json
 {
@@ -453,7 +453,7 @@ You need to supply title of the role as `name`, role `slug` in your payload as M
 }
 ```
 
-For successful execution, you will get a JSON response with this newly created role.
+You will get a JSON response with this newly created role for successful execution.
 
 ```json
 {
@@ -472,7 +472,7 @@ If this role `slug` already exists, you will get a 409 error message like this
 }
 ```
 
-For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+For any unsuccessful attempt or wrong token, you will receive a 401 error response.
 
 ```json
 {
@@ -501,7 +501,7 @@ You need to supply title of the role as `name`, and/or role `slug` in your paylo
 }
 ```
 
-For successful execution, you will get a JSON response with this updated role.
+You will get a JSON response with this updated role for successful execution.
 
 ```json
 {
@@ -511,9 +511,9 @@ For successful execution, you will get a JSON response with this updated role.
 }
 ```
 
-Please note that you cannot change a `super-admin` or `admin` role slug because many API routes in Hydra exclusively require this role to function properly.
+Please note that you cannot change a `super-admin` or `admin` role slug because many API routes in Hydra exclusively require this role to function correctly.
 
-For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+For any unsuccessful attempt or wrong token, you will receive a 401 error response.
 
 ```json
 {
@@ -529,13 +529,13 @@ To delete a role, make an `HTTP DELETE` request to the following route, with Adm
 http://localhost:8000/api/roles/{roleid}
 ```
 
-For example to delete the Customer role, use this endpoint `http://localhost:8000/api/roles/3`
+For example, to delete the Customer role, use this endpoint `http://localhost:8000/api/roles/3`
 
 **API Payload & Response**
 
-No payload required for this endpoint.
+No payload is required for this endpoint.
 
-For successful execution, you will get a JSON response with this updated role.
+You will get a JSON response with this updated role for successful execution.
 
 ```json
 {
@@ -544,9 +544,9 @@ For successful execution, you will get a JSON response with this updated role.
 }
 ```
 
-Please note that you cannot delete the `admin` role because many API routes in Hydra exclusively require this role to function properly.
+Please note that you cannot delete the `admin` role because many API routes in Hydra exclusively require this role to function correctly.
 
-If you try to delete the admin role you will receive the following 422 error response
+If you try to delete the admin role, you will receive the following 422 error response.
 
 ```json
 {
@@ -555,7 +555,7 @@ If you try to delete the admin role you will receive the following 422 error res
 }
 ```
 
-For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+For any unsuccessful attempt or wrong token, you will receive a 401 error response.
 
 ```json
 {
@@ -577,7 +577,7 @@ For example to get all roles assigned to the user with id 2, use this endpoint `
 
 No payload is required for this call.
 
-For successful execution, you will get a JSON response containing the user with all asigned roles to it.
+For successful execution, you will get a JSON response containing the user with all its assigned roles.
 
 ```json
 {
@@ -599,7 +599,7 @@ For successful execution, you will get a JSON response containing the user with 
 }
 ```
 
-For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+For any unsuccessful attempt or wrong token, you will receive a 401 error response.
 
 ```json
 {
@@ -627,7 +627,7 @@ You need to supply `role_id` in your payload as Multipart Form or JSON data
 }
 ```
 
-For successful execution, you will get a JSON response containing the user with all asigned roles to it.
+For successful execution, you will get a JSON response containing the user with all its assigned roles.
 
 ```json
 {
@@ -649,11 +649,11 @@ For successful execution, you will get a JSON response containing the user with 
 }
 ```
 
-Notice that user has a `Roles` array and this newly assigned role is present in this array.  
+Notice that the user has a `Roles` array, and this newly assigned role is present in this array.  
 
-Please note that if you assign the same `role` again to a user, it will have no effect.
+Please note that it will have no effect if you assign the same `role` again to a user.
 
-For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+For any unsuccessful attempt or wrong token, you will receive a 401 error response.
 
 ```json
 {
@@ -669,7 +669,7 @@ To delete a role from a user, make an `HTTP DELETE` request to the following rou
 http://localhost:8000/api/users/{userid}/roles/{role}
 ```
 
-For example to delete a role with id 3 from the user with id 2, use this endpoint `http://localhost:8000/api/users/2/roles/3`
+For example, to delete a role with id 3 from the user with id 2, use this endpoint `http://localhost:8000/api/users/2/roles/3`
 
 **API Payload & Response**
 
@@ -692,9 +692,9 @@ For successful execution, you will get a JSON response containing the user with 
 }
 ```
 
-Notice that user has a `Roles` array and the role with id 3 is not present in this array.  
+Notice that the user has a `Roles` array, and the role with id 3 is not present in this array.  
 
-For any unsuccsesful attempt or wrong token, you will receive a 401 error response.
+For any unsuccessful attempt or wrong token, you will receive a 401 error response.
 
 ```json
 {
@@ -706,21 +706,21 @@ For any unsuccsesful attempt or wrong token, you will receive a 401 error respon
 
 ### Default Role for New Users
 
-When a new user is created, the `user` role is aassigned to them. To change this behavior, open your `.env` file and set the value of `DEFAULT_ROLE_ID` to any existing role id and newly created users will have that role by default. For example, if you want your new users to have a `customer` role, set `DEFAULT_ROLE_ID=3` in your `.env` file.
+The `user` role is assigned to them when a new user is created. To change this behavior, open your `.env` file and set the value of `DEFAULT_ROLE_ID` to any existing role id. New users will have that role by default. For example, if you want your new users to have a `customer` role, set `DEFAULT_ROLE_ID=3` in your `.env` file.
 
 ### Single Session or Multiple Session
 
-When a user authenticates, Hydra doesn't invalidate the previously issued access token. So, all access tokens including the newly created token will remain balid. If you want to change this behavior and delete all previous tokens when a user authenticates, set `DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN` to `true` in your `.env` file. The value of `DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN` is set to `false` by default.
+Hydra doesn't invalidate the previously issued access tokens when a user authenticates. So, all access tokens, including the newly created one, will remain valid. If you want to change this behavior and delete all previous tokens when a user authenticates, set `DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN` to `true` in your `.env` file. The value of `DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN` is set to `false` by default.
 
 ### Add `Accept: application/json` Header In Your API Calls
 
-This is very important. To properly receive JSON responses, definitely add the following header to your API requests. 
+This is very important. To properly receive JSON responses, add the following header to your API requests.
 
-```
+```shell
 Accept: application/json
 ```
 
-For example, if you are using `curl` you can make a call like this 
+For example, if you are using `curl` you can make a call like this. 
 
 ```shell
 curl --request GET \
@@ -732,11 +732,11 @@ curl --request GET \
 
 ## Tutorial
 
-So you decided to give Hydra a try and create a new protected API endpoint, that's awesome, let's dive in. 
+So you decided to give Hydra a try and create a new protected API endpoint; that's awesome; let's dive in. 
 
 ### Create a New API Controller
 
-You can create a normal or a resourceful controller. To keep it simple, I am going with a normal controller. 
+You can create a normal or a resourceful controller. To keep it simple, I am going with a standard controller. 
 
 ```shell
 php artisan make:controller MessageController
@@ -746,7 +746,7 @@ This will create a new file called `app/Http/Controlers/MessageController.php`
 
 ### Add a Function
 
-We are going to add a simple function that will greet the authenticated user. Since this will be protected using Sanctum middleware, only a request with a valid bearer token will be able to access this endpoint. You don't need to worry about anything else.
+We will add a simple function that will greet the authenticated user. Since this will be protected using Sanctum middleware, only a request with a valid bearer token will be able to access this endpoint. You don't need to worry about anything else.
 
 Open this file `app/Http/Controlers/MessageController.php` and add the following code
 
@@ -778,7 +778,7 @@ class MessageController extends Controller
 
 Let's create a protected route `http://localhost:8000/api/greet` to use this API
 
-Open your `routes/api.php` file and add the following line at the end
+Open your `routes/api.php` file and add the following line at the end.
 
 ```php
 Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum']);
@@ -788,9 +788,9 @@ Nice! Now we have a route `/api/greet` that is only accessible with a valid bear
 
 ### Test Protected Routes
 
-If you have already created a user then you need his accessToken first, or you can use the admin user or you can simply create a new user and then login and note his/her bearer token. To create or authenticate a user, check the documentation in the beginning.
+If you have already created a user, you need his accessToken first. You can use the admin user or create a new user and then log in and note their bearer token. To create or authenticate a user, check the documentation in the beginning.
 
-To create a new user you can place a curl request or use tools like Postman, Insomnia or HTTPie. Here is a quick example using curl.
+To create a new user, you can place a curl request or use tools like Postman, Insomnia or HTTPie. Here is a quick example using curl.
 
 ```shell
 curl --request POST \
@@ -802,7 +802,7 @@ curl --request POST \
   --form 'password=Surprisingly A Good Password'
 ```
 
-Great! now we have our user. Let's login as this new user using curl (You can use tools like Postman, Insomnia or HTTPie)
+Great! Now we have our users. Let's login as this new user using curl (You can use tools like Postman, Insomnia, or HTTPie)
 
 ```shell
 curl --request POST \
@@ -823,7 +823,7 @@ Now you have this user's accessToken in the response, as shown below. Note it.
 
 The bearer token for this user is `5|gbiWdd7yJFYiTIgoK1jK3C7HZJtJUK1PnBIToBLN`
 
-Now let's test our protected route. Add this bearer token in your PostMan/Insomnia/HTTPie or Curl call and make a `HTTP GET` request to our newly created protected route `http://localhost:8000/api/greet` . Here's an example call with curl
+Now let's test our protected route. Add this bearer token in your PostMan/Insomnia/HTTPie or Curl call and make a `HTTP GET` request to our newly created protected route `http://localhost:8000/api/greet`. Here's an example call with curl
 
 ```shell
 curl --request GET \
@@ -832,7 +832,7 @@ curl --request GET \
   --header 'Authorization: Bearer 5|gbiWdd7yJFYiTIgoK1jK3C7HZJtJUK1PnBIToBLN'
 ```
 
-The response will be something like this
+The response will be something like this.
 
 ```javascript
 {
@@ -845,7 +845,7 @@ Great! you have learned how to create your protected API endpoint using Laravel 
 
 ### Protect a Route with Laravel Sanctum's Ability and Abilities Middleware
 
-Let's make our newly created API endpoint even more robust. Say, we want our route to be accessble by only admin users. Remember you added the following line in `routes/api.php` file just a couple of minutes ago? Let's change it
+Let's make our newly created API endpoint even more robust. Say, we want our route to be accessible by only admin users. Remember you added the following line in the `routes/api.php` file just a few minutes ago? Let's change it.
 
 ```php
 Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum']);
@@ -857,14 +857,14 @@ Change it like this
 Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'ability:admin']);
 ```
 
-Now only a `HTTP GET` call with a valide admin user's access token can access this route. 
-If you want this route to be accessible by the users with `admin`, **or** the `user` role, then modify it like this. 
+Only an `HTTP GET` call with a valid admin user's access token can access this route. 
+If you want this route to be accessible by the users with `admin`, **or** the `user` role, then modify it. 
 
 ```php
 Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'ability:admin,user']);
 ```
 
-If you want this route to be accessible by the users with both `user`, **and** the `customer` role, then modify it like this.
+If you want this route to be accessible by the users with both `user`, **and** the `customer` role, then modify it.
 
 ```php
 Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'abilities:customer,user']);
