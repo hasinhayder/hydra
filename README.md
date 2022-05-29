@@ -62,7 +62,13 @@ composer install
 cp .env.example .env
 ```
 
-4. Start the webserver
+4. Generate application key
+
+```shell
+php artisan key:generate
+```
+
+5. Start the webserver
 
 ```shell
 php artisan serve
