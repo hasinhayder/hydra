@@ -14,7 +14,7 @@ class HydraController extends Controller
 
     public function version(){
         return response([
-            "version"=>"1.0.0"
+            "version"=> env('APP_VERSION')
         ]);
     }
 }
