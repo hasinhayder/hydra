@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Role;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class RoleSeeder extends Seeder {
     /**
@@ -14,6 +15,10 @@ class RoleSeeder extends Seeder {
      * @return void
      */
     public function run() {
+        Schema::disableForeignKeyConstraints();
+        DB::table('roles')->truncate();
+        Schema::enableForeignKeyConstraints();
+
         $roles = [
             ['name' => 'Administrator', 'slug' => 'admin'],
             ['name' => 'User', 'slug' => 'user'],
@@ -22,7 +27,7 @@ class RoleSeeder extends Seeder {
             ['name' => 'All', 'slug' => '*'],
             ['name' => 'Super Admin', 'slug' => 'super-admin'],
         ];
-        DB::table('roles')->truncate();
+
         collect($roles)->each(function($role){
             Role::create($role);
         });

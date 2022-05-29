@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class UsersSeeder extends Seeder
 {
@@ -17,7 +18,10 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
         DB::table('users')->truncate();
+        Schema::enableForeignKeyConstraints();
+
         User::create([
             'email'=>'admin@hydra.project',
             'password'=>Hash::make('hydra'),
