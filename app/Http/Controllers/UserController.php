@@ -45,10 +45,9 @@ class UserController extends Controller {
             'name' => $creds['name']
         ]);
 
-        $default_user_role_id = env('DEFAULT_ROLE_ID', 2);
         UserRole::create([
             'user_id' => $user->id,
-            'role_id' => $default_user_role_id
+            'role_id' => config('hydra.default_user_role_id', 2)
         ]);
 
 
@@ -72,7 +71,7 @@ class UserController extends Controller {
             return response(['error' => 1, 'message' => 'invalid credentials'], 401);
         }
 
-        if (env('DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN', false) == true) {
+        if (config('hydra.delete_previous_access_tokens_on_login', false)) {
             $user->tokens()->delete();
         }
 
