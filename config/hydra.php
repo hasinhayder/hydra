@@ -13,7 +13,7 @@ return [
     | 1 = Admin role, 2 = User role, 3 = Customer Role - Check RoleSeeder for more
     */
 
-    'default_user_role_id' => env('DEFAULT_USER_ROLE_ID', 2),
+    'default_user_role_id' => env('DEFAULT_ROLE_ID', 2),
 
     /*
     |--------------------------------------------------------------------------
