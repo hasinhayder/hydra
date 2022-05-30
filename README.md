@@ -303,7 +303,7 @@ Make an `HTTP PUT` request to the following route to update an existing user. Re
 http://localhost:8000/api/users/{userid}
 ```
 
-For example, to update the user with id 2, use this endpoint `http://localhost:8000/api/users/3`
+For example, to update the user with id 3, use this endpoint `http://localhost:8000/api/users/3`
 
 **API Payload & Response**
 
