@@ -4,6 +4,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Hydra Version
+    |--------------------------------------------------------------------------
+    |
+    | This value will be displayed in api/hydra/version call
+    |
+    */
+
+    'version' => env('APP_VERSION', '1.1.0'),
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Default user role
     |--------------------------------------------------------------------------
     |
@@ -11,6 +23,7 @@ return [
     | when they register.
     |
     | 1 = Admin role, 2 = User role, 3 = Customer Role - Check RoleSeeder for more
+    |
     */
 
     'default_user_role_id' => env('DEFAULT_ROLE_ID', 2),
