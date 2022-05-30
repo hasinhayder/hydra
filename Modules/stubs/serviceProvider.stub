@@ -1,0 +1,51 @@
+<?php
+
+namespace Modules\{{module}}\Providers;
+
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Illuminate\Support\Facades\Route;
+
+class {{module}}ServiceProvider extends BaseServiceProvider
+{
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+
+
+
+    /**
+     * The controller namespace for the application.
+     *
+     * When present, controller route declarations will automatically be prefixed with this namespace.
+     *
+     * @var string|null
+     */
+    protected $namespace = '\Modules\\{{module}}\\Http\\Controllers';
+
+
+
+    public function boot(){
+        // Load {{module}} migrations from
+        $this->loadMigrationsFrom(__DIR__."/../database/migrations");
+
+        // Load Views
+
+        $this->loadViewsFrom(__DIR__."/../views", strtolower('{{module}}'));
+
+        // // Load  Routets
+        $this->loadRoutesFrom(__DIR__."/../routes/web.php");
+        $this->loadRoutesFrom(__DIR__ . "/../routes/api.php");
+
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+    }
+}

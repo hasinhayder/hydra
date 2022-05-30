@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
+Route::group([
+        'middleware' => ['auth:sanctum', /**"role:SuperAdmin"*/],
+        'prefix' => 'api',
+        "namespace" => "{{lcModule}}"
+    ], function () {
+
+        Route::post('/{{lcModule}}s', [{{module}}Controller::class, 'create{{module}}']);
+        Route::get('/{{lcModule}}s', [{{module}}Controller::class, 'get{{module}}s']);
+        Route::get('/{{lcModule}}s/{{{lcModule}}Id}', [{{module}}Controller::class, 'get{{module}}']);
+        Route::post('/{{lcModule}}s/edit', [{{module}}Controller::class, 'edit{{module}}']);
+        Route::delete('/{{lcModule}}s/{{{lcModule}}Id}', [{{module}}Controller::class, 'delete{{module}}']);
+
+});

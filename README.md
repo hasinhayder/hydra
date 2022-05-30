@@ -6,7 +6,7 @@
 
 [![CircleCI](https://circleci.com/gh/hasinhayder/hydra/tree/master.svg?style=svg)](https://circleci.com/gh/hasinhayder/hydra/tree/master) ![GitHub](https://img.shields.io/github/license/hasinhayder/hydra?label=License&style=flat-square)
 
-Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excellent user and role management API out of the box. Start your next big API project with Hydra, focus on building business logic, and save countless hours of writing boring user and role management API again and again.
+Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excellent user and role management API out of the box. Hydra is has Optional Modular System in-built, which you can use to bootstrap modules faster. Start your next big API project with Hydra, focus on building business logic, and save countless hours of writing boring user and role management API again and again.
 
 - [Hydra - Zero Config API Boilerplate with Laravel Sanctum](#hydra---zero-config-api-boilerplate-with-laravel-sanctum)
   - [Getting Started](#getting-started)
@@ -148,6 +148,39 @@ run the following command
 //or
 >>> Role::all()
 ```
+
+## Module Documentation
+You can easily bootstrap a module, and encapsulate your logic using the Modular Design Pattern, this helps to abstract logic for each sub-system of the project into smaller parts
+
+to create a module run the following command
+### make a module
+```shell
+    php artisan module:make Inventory
+```
+this will generate route, controller,model, repository, migration folder and more inside the project `Modules` folder
+
+create migration for this module
+
+### create a controller inside a module
+```shell
+    //ModuleName is the name of the module to attach the created controller
+    php artisan module:controller Inventory -m=ModuleName 
+```
+
+### create a request inside a module
+```shell
+    //ModuleName is the name of the module to attach the created request
+    php artisan module:request Inventory -m=ModuleName
+```
+
+### create a migration inside a module
+```shell
+    //ModuleName is the name of the module to attach the created migration
+    php artisan module:migration create_inventories_table -m=ModuleName
+```
+
+Finally, open `config/app.php` inside the `providers` array section add the Provider for the new module you created.
+You can find the provider for each module inside the `Providers` folder of that particular module, for example, provider for `Shop` will be found inside `Modules/Shop/ShopServiceProvider`
 
 ## Routes Documentation
 

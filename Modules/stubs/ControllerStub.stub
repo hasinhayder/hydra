@@ -1,0 +1,57 @@
+<?php
+
+namespace Modules\{{module}}\Http\Controllers;
+
+use Modules\BaseController;
+use Illuminate\Http\Request;
+use Modules\{{module}}\Http\Repositories\{{module}}Repository;
+class {{class}}Controller extends BaseController
+{
+    public function __construct(private {{module}}Repository ${{repoName}}Repository){
+
+    }
+
+    public function create{{module}}(Request $request){
+        $request->validate([
+        // 'name' => "required|string"
+        ]);
+
+        $created{{module}} =  $this->{{repoName}}Repository->create{{module}}($request->all());
+
+        return $this->transformResponse('{{module}} created Successfully', ["{{repoName}}" => $created{{module}}]);
+
+    }
+
+    public function get{{module}}s(Request $request){
+
+        ${{repoName}}s =  $this->{{repoName}}Repository->get{{module}}s($request->all());
+
+        return $this->transformResponse('{{module}}s Fetched Successfully', ["{{repoName}}" => ${{repoName}}s]);
+
+    }
+
+    public function get{{module}}(${{repoName}}Id){
+
+        ${{repoName}} =  $this->{{repoName}}Repository->get{{module}}(${{repoName}}Id);
+
+        return $this->transformResponse('{{module}} Fetched Successfully', ["{{repoName}}" => ${{repoName}}]);
+
+    }
+
+    public function edit{{module}}(Request $request){
+        $request->validate([
+            "{{underscoreModule}}_id" => "required|exists:table,id"
+        ]);
+
+        ${{module}} =  $this->{{repoName}}Repository->edit{{module}}($request->all());
+
+        return $this->transformResponse('{{module}} edited Successfully', ["{{repoName}}" => ${{module}}]);
+    }
+
+    public function delete{{module}}(${{uCmodule}}Id){
+
+        ${{module}} =  $this->{{repoName}}Repository->delete{{module}}(${{uCmodule}}Id);
+
+        return $this->transformResponse('{{module}} deleted Successfully', ["{{repoName}}" => ${{module}}]);
+    }
+}

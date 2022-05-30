@@ -1,0 +1,56 @@
+<?php
+
+namespace Modules\{{module}}\Http\Repositories;
+
+use Modules\{{module}}\Models\{{module}};
+
+class {{module}}Repository
+{
+
+    public function create{{module}}($data){
+
+        ${{uCmodule}} = {{module}}::create([
+            // 'name' => $data['name'],
+        ]);
+
+        return ${{uCmodule}};
+    }
+
+    public function get{{module}}s($data){
+
+        if (!empty($data['search'])) {
+            ${{uCmodule}}s = {{module}}::where('name', 'like', "%{$data['search']}%")->orderBy('id', 'desc')->paginate(10);
+        } else {
+            ${{uCmodule}}s = {{module}}::orderBy('id', 'desc')->paginate(10);
+        }
+
+        return ${{uCmodule}}s;
+
+    }
+
+
+     public function get{{module}}(int ${{uCmodule}}Id)
+    {
+        ${{uCmodule}} = {{module}}::findOrFail(${{uCmodule}}Id);
+
+        return ${{uCmodule}};
+    }
+
+
+    public function edit{{module}}($data){
+
+        ${{uCmodule}} = {{module}}::findOrFail($data['{{underscoreModule}}_id']);
+
+        ${{uCmodule}}->save();
+        return ${{uCmodule}};
+
+    }
+
+    public function delete{{module}}(${{underscoreModule}}Id){
+        ${{uCmodule}} = {{module}}::findOrFail(${{underscoreModule}}Id);
+        ${{uCmodule}}->delete();
+        return ${{uCmodule}};
+
+    }
+
+}
