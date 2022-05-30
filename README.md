@@ -29,9 +29,10 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
     - [Assign a Role to a User (Admin Ability Required)](#assign-a-role-to-a-user-admin-ability-required)
     - [Delete a Role from a User (Admin Ability Required)](#delete-a-role-from-a-user-admin-ability-required)
   - [Notes](#notes)
+    - [Default Admin Username and Password](#default-admin-username-and-password)
     - [Default Role for New Users](#default-role-for-new-users)
     - [Single Session or Multiple Session](#single-session-or-multiple-session)
-    - [Add `Accept: application/json` Header In Your API Calls](#add-accept-applicationjson-header-in-your-api-calls)
+    - [Add `Accept: application/json` Header In Your API Calls (Important)](#add-accept-applicationjson-header-in-your-api-calls-important)
   - [Tutorial](#tutorial)
     - [Create a New API Controller](#create-a-new-api-controller)
     - [Add a Function](#add-a-function)
@@ -721,15 +722,24 @@ For any unsuccessful attempt or wrong token, you will receive a 401 error respon
 
 ## Notes
 
+### Default Admin Username and Password
+
+When you run the database seeders, a default admin user is created with the username '**admin@hydra.project**' and the password '**hydra**'. You can login as this default admin user and use the bearer token on next API calls where admin ability is required. 
+
+When you push your application to production, please remember to change this user's password, email or simply create a new admin user and delete the default one.
 ### Default Role for New Users
 
 The `user` role is assigned to them when a new user is created. To change this behavior, open your `.env` file and set the value of `DEFAULT_ROLE_ID` to any existing role id. New users will have that role by default. For example, if you want your new users to have a `customer` role, set `DEFAULT_ROLE_ID=3` in your `.env` file.
+
+This ENV variable is configured in in `config/hydra.php`, and then used in `app/Http/Controllers/UserController.php`
 
 ### Single Session or Multiple Session
 
 Hydra doesn't invalidate the previously issued access tokens when a user authenticates. So, all access tokens, including the newly created one, will remain valid. If you want to change this behavior and delete all previous tokens when a user authenticates, set `DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN` to `true` in your `.env` file. The value of `DELETE_PREVIOUS_ACCESS_TOKENS_ON_LOGIN` is set to `false` by default.
 
-### Add `Accept: application/json` Header In Your API Calls
+This ENV variable is configured in in `config/hydra.php`, and then used in `app/Http/Controllers/UserController.php`
+
+### Add `Accept: application/json` Header In Your API Calls (Important)
 
 This is very important. To properly receive JSON responses, add the following header to your API requests.
 
