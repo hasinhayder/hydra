@@ -31,10 +31,9 @@ class UserRoleController extends Controller {
         $role = Role::find($data['role_id']);
         if (!$user->roles()->find($data['role_id'])) {
             $user->roles()->attach($role);
-            return $user->load('roles');
-        } else {
-            return $user->load('roles');
         }
+        
+        return $user->load('roles');
     }
 
     /**
