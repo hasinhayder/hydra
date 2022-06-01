@@ -170,7 +170,7 @@ You can send a Form Multipart payload or a JSON payload like this.
 {
     "name":"Hydra User",
     "email":"user@hydra.project",
-    "passsword":"Surprisingly A Good Password"
+    "password":"Surprisingly A Good Password"
 }
 ```
 
@@ -200,7 +200,7 @@ You can send a Form Multipart or a JSON payload like this.
 ```json
 {
     "email":"admin@hydra.project",
-    "passsword":"hydra"
+    "password":"hydra"
 }
 ```
 
@@ -237,7 +237,7 @@ You can send a Form Multipart or a JSON payload like this
 ```json
 {
     "email":"user@hydra.project",
-    "passsword":"Surprisingly A Good Password"
+    "password":"Surprisingly A Good Password"
 }
 ```
 
