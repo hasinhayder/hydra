@@ -88,8 +88,8 @@ class RoleController extends Controller {
             //don't allow changing the admin slug, because it will make the routes inaccessbile due to faile ability check
             $role->delete();
             return response(['error' => 0, 'message' => 'role has been deleted']);
-        } else {
-            return response(['error' => 1, 'message' => 'you cannot delete this role'], 422);
         }
+
+        return response(['error' => 1, 'message' => 'you cannot delete this role'], 422);
     }
 }

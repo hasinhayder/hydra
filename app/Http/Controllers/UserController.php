@@ -75,14 +75,9 @@ class UserController extends Controller {
             $user->tokens()->delete();
         }
 
-
-        $roles =  $user->roles()->get();
-        $_roles = [];
-        foreach ($roles as $role) {
-            $_roles[] = $role->slug;
-        }
-
-        $plainTextToken = $user->createToken('hydra-api-token', $_roles)->plainTextToken;
+        $roles =  $user->roles->pluck('slug')->all();
+        
+        $plainTextToken = $user->createToken('hydra-api-token', $roles)->plainTextToken;
         return response(['error' => 0, 'id' => $user->id, 'token' => $plainTextToken], 200);
     }
 
