@@ -9,7 +9,7 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
 
 - [Hydra - Zero Config API Boilerplate with Laravel Sanctum](#hydra---zero-config-api-boilerplate-with-laravel-sanctum)
   - [Getting Started](#getting-started)
-    - [Without Docker](#without-docker)
+    - [Without Docker (Simple)](#without-docker-simple)
     - [Using Docker & Laravel Sail](#using-docker--laravel-sail)
     - [Screencast](#screencast)
   - [Database Migration and Seeding](#database-migration-and-seeding)
@@ -52,9 +52,9 @@ git clone https://github.com/hasinhayder/hydra.git
 cd hydra
 ```
 
-Then follow the process using either Docker or without Docker.
+Then follow the process using either Docker or without Docker (simple).
 
-### Without Docker
+### Without Docker (Simple)
 
 1. install the dependencies
 
