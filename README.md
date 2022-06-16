@@ -43,38 +43,76 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
 
 It's super easy to get Hydra up and running.
 
-1. clone the project
+First clone the project and change the directory
 
 ```shell
 git clone https://github.com/hasinhayder/hydra.git
+cd hydra
 ```
 
-2. install the dependencies
+Then follow the process using either Docker or without Docker.
+
+### Using Docker
+
+1. install the dependencies
 
 ```shell
-cd hydra
-composer install
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v $(pwd):/var/www/html \
+    -w /var/www/html \
+    laravelsail/php81-composer:latest \
+    composer install --ignore-platform-reqs
 ```
 
-3. Copy `.env.example` to `.env`
+2. Copy `.env.example` to `.env`
 
 ```shell
 cp .env.example .env
 ```
 
+3. Run the containers
+
+```shell
+./vendor/bin/sail up
+```
+
 4. Generate application key
+
+```shell
+./vendor/bin/sail artisan key:generate
+```
+
+To learn more about Sail, visit the [official Doc](https://laravel.com/docs/9.x/sail).
+
+### Without Docker
+
+1. install the dependencies
+
+```shell
+composer install
+```
+
+2. Copy `.env.example` to `.env`
+
+```shell
+cp .env.example .env
+```
+
+3. Generate application key
 
 ```shell
 php artisan key:generate
 ```
 
-5. Start the webserver
+4. Start the webserver
 
 ```shell
 php artisan serve
 ```
 
-That's mostly it! You have a fully running laravel installation with Sanctum, all configured. 
+That's mostly it! You have a fully running laravel installation with Sanctum, all configured.
+
 
 ### Screencast
 
