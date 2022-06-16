@@ -4,6 +4,7 @@ use App\Http\Controllers\HydraController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
+use App\Http\Middleware\HydraLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+//use the middleware 'hydra.log' with any request to get the detailed headers, request parameters and response logged in logs/laravel.log
 
 Route::get('hydra',[HydraController::class,'hydra']);
 Route::get('hydra/version',[HydraController::class,'version']);
