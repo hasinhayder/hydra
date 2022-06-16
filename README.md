@@ -9,6 +9,8 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
 
 - [Hydra - Zero Config API Boilerplate with Laravel Sanctum](#hydra---zero-config-api-boilerplate-with-laravel-sanctum)
   - [Getting Started](#getting-started)
+    - [Without Docker](#without-docker)
+    - [Using Docker & Laravel Sail](#using-docker--laravel-sail)
     - [Screencast](#screencast)
   - [Database Migration and Seeding](#database-migration-and-seeding)
   - [List of Default Routes](#list-of-default-routes)
@@ -52,7 +54,35 @@ cd hydra
 
 Then follow the process using either Docker or without Docker.
 
-### Using Docker
+### Without Docker
+
+1. install the dependencies
+
+```shell
+composer install
+```
+
+2. Copy `.env.example` to `.env`
+
+```shell
+cp .env.example .env
+```
+
+3. Generate application key
+
+```shell
+php artisan key:generate
+```
+
+4. Start the webserver
+
+```shell
+php artisan serve
+```
+
+That's mostly it! You have a fully running laravel installation with Sanctum, all configured.
+
+### Using Docker & Laravel Sail
 
 1. install the dependencies
 
@@ -84,35 +114,6 @@ cp .env.example .env
 ```
 
 To learn more about Sail, visit the [official Doc](https://laravel.com/docs/9.x/sail).
-
-### Without Docker
-
-1. install the dependencies
-
-```shell
-composer install
-```
-
-2. Copy `.env.example` to `.env`
-
-```shell
-cp .env.example .env
-```
-
-3. Generate application key
-
-```shell
-php artisan key:generate
-```
-
-4. Start the webserver
-
-```shell
-php artisan serve
-```
-
-That's mostly it! You have a fully running laravel installation with Sanctum, all configured.
-
 
 ### Screencast
 
