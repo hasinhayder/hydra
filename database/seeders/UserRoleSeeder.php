@@ -20,14 +20,16 @@ class UserRoleSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
         DB::table('user_roles')->truncate();
         Schema::enableForeignKeyConstraints();
-
-        UserRole::create([
+        
+        $admin = [
             'user_id'=>1,
             'role_id'=>1
-        ]); //admin
-        UserRole::create([
+        ];
+        $all = [
             'user_id'=>1,
             'role_id'=>5
-        ]);//all
+        ];
+        
+        UserRole::insert($admin,$all);
     }
 }
