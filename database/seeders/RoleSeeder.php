@@ -28,8 +28,6 @@ class RoleSeeder extends Seeder {
             ['name' => 'Super Admin', 'slug' => 'super-admin'],
         ];
 
-        collect($roles)->each(function($role){
-            Role::create($role);
-        });
+        Role::insert(collect($roles));
     }
 }
