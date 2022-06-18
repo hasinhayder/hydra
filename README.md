@@ -40,6 +40,7 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
     - [Create Protected Routes](#create-protected-routes)
     - [Test Protected Routes](#test-protected-routes)
     - [Protect a Route with Laravel Sanctum's Ability and Abilities Middleware](#protect-a-route-with-laravel-sanctums-ability-and-abilities-middleware)
+    - [Logging](#logging)
 
 ## Getting Started
 
@@ -938,3 +939,20 @@ Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanct
 Note that this time we have used the `abilities` keyword instead of `ability`
 
 Great, now you know everything to start creating your next big API project with Laravel & Laravel Sanctum using our powerful boilerplate project called Hydra. Enjoy!
+
+### Logging
+
+Hydra comes with an excellent logger to log request headers, parameters and response to help debugging and inspecting API calls. All you have to do is wrap the route with 'hydra.log' middleware, as shown below 
+
+```php
+Route::post('login',[UserController::class,'login'])->middleware('hydra.log');
+```
+
+or, like this
+
+```php
+Route::put('users/{user}',[UserController::class,'update'])->middleware(['hydra.log', 'auth:sanctum', 'ability:admin,super-admin,user']);
+
+```
+
+And then you can see the API call logs in `logs/laravel.log` file.
