@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'default_user_role_slug' => env('DEFAULT_ROLE_SLUG', 'admin'),
+    'default_user_role_slug' => env('DEFAULT_ROLE_SLUG', 'user'),
 
     /*
     |--------------------------------------------------------------------------
