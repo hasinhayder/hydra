@@ -2,12 +2,14 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
+use App\Models\Role
 use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UsersSeeder extends Seeder
 {
@@ -22,10 +24,15 @@ class UsersSeeder extends Seeder
         DB::table('users')->truncate();
         Schema::enableForeignKeyConstraints();
 
-        User::create([
+        $user = User::create([
             'email'=>'admin@hydra.project',
             'password'=>Hash::make('hydra'),
             'name'=>'Hydra Admin'
         ]);
+        $user->roles()->attach(Role::firstOrCreate([
+            'slug' => config('hydra.default_user_role_slug', 'user')
+        ],[
+            'name' => Str::title(config('hydra.default_user_role_slug', 'user'))
+        ]));
     }
 }
