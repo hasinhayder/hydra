@@ -35,6 +35,7 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
     - [Single Session or Multiple Session](#single-session-or-multiple-session)
     - [Add `Accept: application/json` Header In Your API Calls (Important)](#add-accept-applicationjson-header-in-your-api-calls-important)
     - [Logging](#logging)
+    - [Code Formatting](#code-formatting)
   - [Tutorial](#tutorial)
     - [Create a New API Controller](#create-a-new-api-controller)
     - [Add a Function](#add-a-function)
@@ -822,6 +823,18 @@ Route::put('users/{user}',[UserController::class,'update'])->middleware(['hydra.
 ```
 
 And then you can see the API call logs in `logs/laravel.log` file.
+
+### Code Formatting
+
+Hydra comes with an excellent code formatter called [Laravel Pint](https://github.com/laravel/pint) out of the box, with an excellent configuration preset that you can find in `pint.json`. By default `pint` uses the [Allman style](https://en.wikipedia.org/wiki/Indentation_style#Allman_style) for the braces where the braces are placed in a new line after the function name. So we have changed it to [K&R style](https://en.wikipedia.org/wiki/Indentation_style#K&R_style) formatting where the brace stays on the same line of the function name.
+
+To format your code using `laravel pint`, you can run the following command any time from inside your project diretory.
+
+```shell
+./vendor/bin/pint
+```
+
+And that's all for formatting. To know more, check out laravel pint documentation at [https://github.com/laravel/pint](https://github.com/laravel/pint)
 
 ## Tutorial
 
