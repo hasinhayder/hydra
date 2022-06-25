@@ -44,7 +44,7 @@ class RoleController extends Controller {
      * Display the specified resource.
      *
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \App\Models\Role $role
      */
     public function show(Role $role) {
         return $role;
@@ -55,7 +55,7 @@ class RoleController extends Controller {
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|Role
      */
     public function update(Request $request, Role $role = null) {
 
