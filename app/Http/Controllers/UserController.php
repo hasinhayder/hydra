@@ -17,7 +17,6 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        //
         return User::all();
     }
 
@@ -76,7 +75,7 @@ class UserController extends Controller {
         }
 
         $roles =  $user->roles->pluck('slug')->all();
-        
+
         $plainTextToken = $user->createToken('hydra-api-token', $roles)->plainTextToken;
         return response(['error' => 0, 'id' => $user->id, 'token' => $plainTextToken], 200);
     }
@@ -85,7 +84,7 @@ class UserController extends Controller {
      * Display the specified resource.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \App\Models\User  $user
      */
     public function show(User $user) {
         return $user;
@@ -94,9 +93,10 @@ class UserController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\User $user
+     * @return User
+     * @throws MissingAbilityException
      */
     public function update(Request $request, User $user) {
         $user->name = $request->name ?? $user->name;
@@ -143,6 +143,12 @@ class UserController extends Controller {
         return response(['error' => 0, 'message' => 'user deleted']);
     }
 
+    /**
+     * Return Auth user
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function me(Request $request) {
         return $request->user();
     }

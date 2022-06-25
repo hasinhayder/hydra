@@ -11,7 +11,7 @@ class UserRoleController extends Controller {
      * Display a listing of the resource.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \App\Models\User  $user
      */
     public function index(User $user) {
         return $user->load('roles');
@@ -22,7 +22,7 @@ class UserRoleController extends Controller {
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \App\Models\User  $user
      */
     public function store(Request $request, User $user) {
         $data = $request->validate([
@@ -32,7 +32,7 @@ class UserRoleController extends Controller {
         if (!$user->roles()->find($data['role_id'])) {
             $user->roles()->attach($role);
         }
-        
+
         return $user->load('roles');
     }
 
@@ -41,7 +41,7 @@ class UserRoleController extends Controller {
      *
      * @param  \App\Models\User  $user
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \App\Models\User  $user
      */
     public function destroy(User $user, Role $role) {
         $user->roles()->detach($role);
