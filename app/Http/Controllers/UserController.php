@@ -44,12 +44,8 @@ class UserController extends Controller {
             'name' => $creds['name']
         ]);
 
-        $user->roles()->attach(Role::firstOrCreate([
-            'slug' => config('hydra.default_user_role_slug', 'user')
-        ],[
-            'name' => Str::title(config('hydra.default_user_role_slug', 'user'))
-        ]));
-
+        $defaultRoleSlug = config('hydra.default_user_role_slug', 'user');
+        $user->roles()->attach(Role::where('slug', $defaultRoleSlug)->first());
 
         return $user;
     }
