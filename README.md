@@ -34,13 +34,13 @@ Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excel
     - [Default Role for New Users](#default-role-for-new-users)
     - [Single Session or Multiple Session](#single-session-or-multiple-session)
     - [Add `Accept: application/json` Header In Your API Calls (Important)](#add-accept-applicationjson-header-in-your-api-calls-important)
+    - [Logging](#logging)
   - [Tutorial](#tutorial)
     - [Create a New API Controller](#create-a-new-api-controller)
     - [Add a Function](#add-a-function)
     - [Create Protected Routes](#create-protected-routes)
     - [Test Protected Routes](#test-protected-routes)
     - [Protect a Route with Laravel Sanctum's Ability and Abilities Middleware](#protect-a-route-with-laravel-sanctums-ability-and-abilities-middleware)
-    - [Logging](#logging)
 
 ## Getting Started
 
@@ -768,9 +768,19 @@ When you run the database seeders, a default admin user is created with the user
 When you push your application to production, please remember to change this user's password, email or simply create a new admin user and delete the default one.
 ### Default Role for New Users
 
-The `user` role is assigned to them when a new user is created. To change this behavior, open your `.env` file and set the value of `DEFAULT_ROLE_ID` to any existing role id. New users will have that role by default. For example, if you want your new users to have a `customer` role, set `DEFAULT_ROLE_ID=3` in your `.env` file.
+The `user` role is assigned to them when a new user is created. To change this behavior, open your `.env` file and set the value of `DEFAULT_ROLE_SLUG` to any existing `role slug`. New users will have that role by default. For example, if you want your new users to have a `customer` role, set `DEFAULT_ROLE_SLUG=customer` in your `.env` file.
 
-This ENV variable is configured in in `config/hydra.php`, and then used in `app/Http/Controllers/UserController.php`
+There are five default role slugs in Hydra.
+| Role Slug   | Role Name   |
+|-------------|-------------|
+| admin       | Admin       |
+| user        | User        |
+| customer    | Customer    |
+| editor      | Editor      |
+| super-admin | Super Admin |
+
+
+This ENV variable is configured in in `config/hydra.php` as `default_user_role_slug`, and then used in `app/Http/Controllers/UserController.php`
 
 ### Single Session or Multiple Session
 
@@ -795,6 +805,23 @@ curl --request GET \
   --header 'Content-Type: application/x-www-form-urlencoded' \
   --data =
 ```
+
+### Logging
+
+Hydra comes with an excellent logger to log request headers, parameters and response to help debugging and inspecting API calls. All you have to do is wrap the route with 'hydra.log' middleware, as shown below 
+
+```php
+Route::post('login',[UserController::class,'login'])->middleware('hydra.log');
+```
+
+or, like this
+
+```php
+Route::put('users/{user}',[UserController::class,'update'])->middleware(['hydra.log', 'auth:sanctum', 'ability:admin,super-admin,user']);
+
+```
+
+And then you can see the API call logs in `logs/laravel.log` file.
 
 ## Tutorial
 
@@ -940,19 +967,4 @@ Note that this time we have used the `abilities` keyword instead of `ability`
 
 Great, now you know everything to start creating your next big API project with Laravel & Laravel Sanctum using our powerful boilerplate project called Hydra. Enjoy!
 
-### Logging
 
-Hydra comes with an excellent logger to log request headers, parameters and response to help debugging and inspecting API calls. All you have to do is wrap the route with 'hydra.log' middleware, as shown below 
-
-```php
-Route::post('login',[UserController::class,'login'])->middleware('hydra.log');
-```
-
-or, like this
-
-```php
-Route::put('users/{user}',[UserController::class,'update'])->middleware(['hydra.log', 'auth:sanctum', 'ability:admin,super-admin,user']);
-
-```
-
-And then you can see the API call logs in `logs/laravel.log` file.
