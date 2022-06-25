@@ -22,11 +22,11 @@ return [
     | This value is the default user role id that will be assigned to new users
     | when they register.
     |
-    | 1 = Admin role, 2 = User role, 3 = Customer Role - Check RoleSeeder for more
+    | admin = Admin role, user = User role, customer = Customer Role - Check RoleSeeder for more
     |
     */
 
-    'default_user_role_id' => env('DEFAULT_ROLE_ID', 2),
+    'default_user_role_slug' => env('DEFAULT_ROLE_SLUG', 'user'),
 
     /*
     |--------------------------------------------------------------------------
