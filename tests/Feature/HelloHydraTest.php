@@ -2,19 +2,15 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class HelloHydraTest extends TestCase
-{
+class HelloHydraTest extends TestCase {
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function test_hello_hydra()
-    {
+    public function test_hello_hydra() {
         $response = $this->get('/api/hydra');
 
         $response
@@ -24,8 +20,7 @@ class HelloHydraTest extends TestCase
             ]);
     }
 
-    public function test_hydra_version()
-    {
+    public function test_hydra_version() {
         $response = $this->get('/api/hydra/version');
 
         $response

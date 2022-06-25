@@ -2,11 +2,9 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-use Illuminate\Testing\Fluent\AssertableJson;
 use App\Models\Role;
+use Illuminate\Testing\Fluent\AssertableJson;
+use Tests\TestCase;
 
 class RoleTest extends TestCase {
     /**
@@ -17,26 +15,23 @@ class RoleTest extends TestCase {
     public function test_list_roles() {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
-            'password' => 'hydra'
+            'password' => 'hydra',
         ]);
 
         $data = json_decode($response->getContent());
         $this->token = $data->token;
         $this->user_id = $data->id;
 
-
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-            ->get("/api/roles");
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->get('/api/roles');
 
         $response
             ->assertJson(
-                fn (AssertableJson $json) =>
-                $json->has(6)
+                fn (AssertableJson $json) => $json->has(6)
                     ->first(
-                        fn ($json) =>
-                        $json->where('id', 1)
+                        fn ($json) => $json->where('id', 1)
                             ->where('name', 'Administrator')
-                            ->where('slug','admin')
+                            ->where('slug', 'admin')
                             ->etc()
                     )
             );
@@ -45,23 +40,21 @@ class RoleTest extends TestCase {
     public function test_update_role_name_as_admin() {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
-            'password' => 'hydra'
+            'password' => 'hydra',
         ]);
 
         $data = json_decode($response->getContent());
         $this->token = $data->token;
         $this->user_id = $data->id;
 
-
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-            ->put("/api/roles/4",[
-                "name"=>"Chief Editor"
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->put('/api/roles/4', [
+                'name'=>'Chief Editor',
             ]);
 
         $response
             ->assertJson(
-                fn (AssertableJson $json) =>
-                $json->where('name','Chief Editor')
+                fn (AssertableJson $json) => $json->where('name', 'Chief Editor')
                 ->missing('error')
                 ->etc()
             );
@@ -70,23 +63,21 @@ class RoleTest extends TestCase {
     public function test_update_role_slug_as_admin() {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
-            'password' => 'hydra'
+            'password' => 'hydra',
         ]);
 
         $data = json_decode($response->getContent());
         $this->token = $data->token;
         $this->user_id = $data->id;
 
-
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-            ->put("/api/roles/4",[
-                "slug"=>"chief-editor"
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->put('/api/roles/4', [
+                'slug'=>'chief-editor',
             ]);
 
         $response
             ->assertJson(
-                fn (AssertableJson $json) =>
-                $json->where('slug','chief-editor')
+                fn (AssertableJson $json) => $json->where('slug', 'chief-editor')
                 ->missing('error')
                 ->etc()
             );
@@ -95,25 +86,23 @@ class RoleTest extends TestCase {
     public function test_update_role_namd_and_slug_as_admin() {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
-            'password' => 'hydra'
+            'password' => 'hydra',
         ]);
 
         $data = json_decode($response->getContent());
         $this->token = $data->token;
         $this->user_id = $data->id;
 
-
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-            ->put("/api/roles/4",[
-                "name"=>"Editor X",
-                "slug"=>"editor-x"
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->put('/api/roles/4', [
+                'name'=>'Editor X',
+                'slug'=>'editor-x',
             ]);
 
         $response
             ->assertJson(
-                fn (AssertableJson $json) =>
-                $json->where('name','Editor X')
-                ->where('slug','editor-x')
+                fn (AssertableJson $json) => $json->where('name', 'Editor X')
+                ->where('slug', 'editor-x')
                 ->missing('error')
                 ->etc()
             );
@@ -122,24 +111,22 @@ class RoleTest extends TestCase {
     public function test_update_admin_slug_as_admin_should_fail() {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
-            'password' => 'hydra'
+            'password' => 'hydra',
         ]);
 
         $data = json_decode($response->getContent());
         $this->token = $data->token;
         $this->user_id = $data->id;
 
-
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-            ->put("/api/roles/1",[
-                "slug"=>"admin-x"
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->put('/api/roles/1', [
+                'slug'=>'admin-x',
             ]);
 
         $response
             ->assertJson(
-                fn (AssertableJson $json) =>
-                $json
-                ->where('slug','admin')
+                fn (AssertableJson $json) => $json
+                ->where('slug', 'admin')
                 ->etc()
             );
     }
@@ -147,25 +134,23 @@ class RoleTest extends TestCase {
     public function test_create_new_role_as_admin() {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
-            'password' => 'hydra'
+            'password' => 'hydra',
         ]);
 
         $data = json_decode($response->getContent());
         $this->token = $data->token;
         $this->user_id = $data->id;
 
-
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-            ->post("/api/roles",[
-                "name"=>"New Role",
-                "slug"=>"new-role"
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->post('/api/roles', [
+                'name'=>'New Role',
+                'slug'=>'new-role',
             ]);
 
         $response
             ->assertJson(
-                fn (AssertableJson $json) =>
-                $json->where('name','New Role')
-                ->where('slug','new-role')
+                fn (AssertableJson $json) => $json->where('name', 'New Role')
+                ->where('slug', 'new-role')
                 ->missing('error')
                 ->etc()
             );
@@ -174,24 +159,22 @@ class RoleTest extends TestCase {
     public function test_duplicate_role_will_not_be_created() {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
-            'password' => 'hydra'
+            'password' => 'hydra',
         ]);
 
         $data = json_decode($response->getContent());
         $this->token = $data->token;
         $this->user_id = $data->id;
 
-
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
-            ->post("/api/roles",[
-                "name"=>"New Role",
-                "slug"=>"new-role"
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
+            ->post('/api/roles', [
+                'name'=>'New Role',
+                'slug'=>'new-role',
             ]);
 
         $response
             ->assertJson(
-                fn (AssertableJson $json) =>
-                $json->where('error',1)
+                fn (AssertableJson $json) => $json->where('error', 1)
                 ->etc()
             );
     }
@@ -199,23 +182,21 @@ class RoleTest extends TestCase {
     public function test_delete_role_as_admin() {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
-            'password' => 'hydra'
+            'password' => 'hydra',
         ]);
 
         $data = json_decode($response->getContent());
         $this->token = $data->token;
         $this->user_id = $data->id;
 
-        $newRole = Role::where('slug','new-role')->first();
+        $newRole = Role::where('slug', 'new-role')->first();
 
-
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->delete("/api/roles/{$newRole->id}");
 
         $response
             ->assertJson(
-                fn (AssertableJson $json) =>
-                $json->where('error',0)
+                fn (AssertableJson $json) => $json->where('error', 0)
                 ->has('message')
             );
     }
@@ -223,23 +204,21 @@ class RoleTest extends TestCase {
     public function test_delete_admin_role_should_fail() {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
-            'password' => 'hydra'
+            'password' => 'hydra',
         ]);
 
         $data = json_decode($response->getContent());
         $this->token = $data->token;
         $this->user_id = $data->id;
 
-        $newRole = Role::where('slug','admin')->first();
+        $newRole = Role::where('slug', 'admin')->first();
 
-
-        $response = $this->withHeader('Authorization', 'Bearer ' . $this->token)
+        $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->delete("/api/roles/{$newRole->id}");
 
         $response
             ->assertJson(
-                fn (AssertableJson $json) =>
-                $json->where('error',1)
+                fn (AssertableJson $json) => $json->where('error', 1)
                 ->has('message')
             );
     }

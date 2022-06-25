@@ -26,10 +26,10 @@ class UserRoleController extends Controller {
      */
     public function store(Request $request, User $user) {
         $data = $request->validate([
-            'role_id' => 'required|integer'
+            'role_id' => 'required|integer',
         ]);
         $role = Role::find($data['role_id']);
-        if (!$user->roles()->find($data['role_id'])) {
+        if (! $user->roles()->find($data['role_id'])) {
             $user->roles()->attach($role);
         }
 
@@ -45,6 +45,7 @@ class UserRoleController extends Controller {
      */
     public function destroy(User $user, Role $role) {
         $user->roles()->detach($role);
+
         return $user->load('roles');
     }
 }

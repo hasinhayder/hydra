@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Role;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -28,7 +27,7 @@ class RoleSeeder extends Seeder {
             ['name' => 'Super Admin', 'slug' => 'super-admin'],
         ];
 
-        collect($roles)->each(function($role){
+        collect($roles)->each(function ($role) {
             Role::create($role);
         });
     }

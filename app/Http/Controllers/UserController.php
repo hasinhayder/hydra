@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Models\UserRole;
 use Laravel\Sanctum\Exceptions\MissingAbilityException;
 
 class UserController extends Controller {
@@ -30,7 +28,7 @@ class UserController extends Controller {
         $creds = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'name' => 'nullable|string'
+            'name' => 'nullable|string',
         ]);
 
         $user = User::where('email', $creds['email'])->first();
@@ -41,7 +39,7 @@ class UserController extends Controller {
         $user = User::create([
             'email' => $creds['email'],
             'password' => Hash::make($creds['password']),
-            'name' => $creds['name']
+            'name' => $creds['name'],
         ]);
 
         $defaultRoleSlug = config('hydra.default_user_role_slug', 'user');
@@ -63,7 +61,7 @@ class UserController extends Controller {
         ]);
 
         $user = User::where('email', $creds['email'])->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             return response(['error' => 1, 'message' => 'invalid credentials'], 401);
         }
 
@@ -71,9 +69,10 @@ class UserController extends Controller {
             $user->tokens()->delete();
         }
 
-        $roles =  $user->roles->pluck('slug')->all();
+        $roles = $user->roles->pluck('slug')->all();
 
         $plainTextToken = $user->createToken('hydra-api-token', $roles)->plainTextToken;
+
         return response(['error' => 0, 'id' => $user->id, 'token' => $plainTextToken], 200);
     }
 
@@ -90,27 +89,27 @@ class UserController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User $user
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
      * @return User
+     *
      * @throws MissingAbilityException
      */
     public function update(Request $request, User $user) {
         $user->name = $request->name ?? $user->name;
         $user->email = $request->email ?? $user->email;
-        $user->password = $request->password ?  Hash::make($request->password) : $user->password;
+        $user->password = $request->password ? Hash::make($request->password) : $user->password;
         $user->email_verified_at = $request->email_verified_at ?? $user->email_verified_at;
 
         //check if the logged in user is updating it's own record
 
-
         $loggedInUser = $request->user();
         if ($loggedInUser->id == $user->id) {
             $user->update();
-        } else if ($loggedInUser->tokenCan('admin') || $loggedInUser->tokenCan('super-admin')) {
+        } elseif ($loggedInUser->tokenCan('admin') || $loggedInUser->tokenCan('super-admin')) {
             $user->update();
         } else {
-            throw new MissingAbilityException("Not Authorized");
+            throw new MissingAbilityException('Not Authorized');
         }
 
         return $user;
@@ -123,13 +122,12 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user) {
-
         $adminRole = Role::where('slug', 'admin')->first();
         $userRoles = $user->roles;
 
         if ($userRoles->contains($adminRole)) {
             //the current user is admin, then if there is only one admin - don't delete
-            $numberOfAdmins =  Role::where('slug', 'admin')->first()->users()->count();
+            $numberOfAdmins = Role::where('slug', 'admin')->first()->users()->count();
             if (1 == $numberOfAdmins) {
                 return response(['error' => 1, 'message' => 'Create another admin before deleting this only admin user'], 409);
             }
@@ -143,7 +141,7 @@ class UserController extends Controller {
     /**
      * Return Auth user
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return mixed
      */
     public function me(Request $request) {

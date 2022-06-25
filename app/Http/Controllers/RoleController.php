@@ -24,16 +24,17 @@ class RoleController extends Controller {
     public function store(Request $request) {
         $data = $request->validate([
             'name' => 'required',
-            'slug' => 'required'
+            'slug' => 'required',
         ]);
 
         $existing = Role::where('slug', $data['slug'])->first();
 
-        if (!$existing) {
+        if (! $existing) {
             $role = Role::create([
                 'name' => $data['name'],
-                'slug' => $data['slug']
+                'slug' => $data['slug'],
             ]);
+
             return $role;
         }
 
@@ -58,8 +59,7 @@ class RoleController extends Controller {
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|Role
      */
     public function update(Request $request, Role $role = null) {
-
-        if (!$role) {
+        if (! $role) {
             return response(['error' => 1, 'message' => 'role doesn\'t exist'], 404);
         }
 
@@ -87,6 +87,7 @@ class RoleController extends Controller {
         if ($role->slug != 'admin' && $role->slug != 'super-admin') {
             //don't allow changing the admin slug, because it will make the routes inaccessbile due to faile ability check
             $role->delete();
+
             return response(['error' => 0, 'message' => 'role has been deleted']);
         }
 

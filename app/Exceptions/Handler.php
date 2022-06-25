@@ -52,16 +52,17 @@ class Handler extends ExceptionHandler {
         if ($exception instanceof ModelNotFoundException) {
             return response([
                 'error'=>1,
-                'message'=>$exception->getMessage()
-            ],404);
+                'message'=>$exception->getMessage(),
+            ], 404);
         }
 
         if ($exception instanceof MissingAbilityException) {
             return response([
                 'error'=>1,
-                'message'=>"Not authorized"
-            ],409);
+                'message'=>'Not authorized',
+            ], 409);
         }
+
         return parent::render($request, $exception);
     }
 }
