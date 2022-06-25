@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
@@ -29,10 +29,6 @@ class UsersSeeder extends Seeder
             'password'=>Hash::make('hydra'),
             'name'=>'Hydra Admin'
         ]);
-        $user->roles()->attach(Role::firstOrCreate([
-            'slug' => config('hydra.default_user_role_slug', 'user')
-        ],[
-            'name' => Str::title(config('hydra.default_user_role_slug', 'user'))
-        ]));
+        $user->roles()->attach(Role::where('slug', 'admin')->first());
     }
 }
