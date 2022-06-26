@@ -12,7 +12,6 @@ class UserRequest extends FormRequest {
      */
     public function authorize() {
         if ($this->isMethod('PUT')) {
-            var_dump($this->isMethod('PUT'));
             return auth('sanctum')->check();
         }
 
