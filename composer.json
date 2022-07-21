@@ -10,13 +10,13 @@
     "require": {
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.4.4",
-        "laravel/framework": "^9.19",
+        "laravel/framework": "^9.21",
         "laravel/sanctum": "^2.15.1",
         "laravel/tinker": "^2.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
-        "laravel/pint": "^0.2.1",
+        "laravel/pint": "^1.0.0",
         "laravel/sail": "^1.15",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.2",
