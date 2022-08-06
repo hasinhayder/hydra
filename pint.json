@@ -3,7 +3,20 @@
     "rules": {
         "simplified_null_return": true,
         "braces": {
-            "position_after_functions_and_oop_constructs": "same"
+            "allow_single_line_anonymous_class_with_empty_body": true,
+            "allow_single_line_closure": true,
+            "position_after_control_structures": "same",
+            "position_after_functions_and_oop_constructs": "same",
+            "position_after_anonymous_constructs": "same"
+        },
+        "curly_braces_position": {
+            "control_structures_opening_brace": "same_line",
+            "functions_opening_brace": "same_line",
+            "anonymous_functions_opening_brace": "same_line",
+            "classes_opening_brace": "same_line",
+            "anonymous_classes_opening_brace": "same_line",
+            "allow_single_line_empty_anonymous_classes": true,
+            "allow_single_line_anonymous_functions": true
         },
         "new_with_braces": {
             "anonymous_class": false,
