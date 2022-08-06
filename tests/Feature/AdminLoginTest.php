@@ -13,8 +13,8 @@ class AdminLoginTest extends TestCase {
      */
     public function test_admin_login() {
         $response = $this->postJson('/api/login', [
-            'email'=>'admin@hydra.project',
-            'password'=>'hydra',
+            'email' => 'admin@hydra.project',
+            'password' => 'hydra',
         ]);
 
         $response
@@ -26,8 +26,8 @@ class AdminLoginTest extends TestCase {
 
     public function test_admin_login_fail() {
         $response = $this->postJson('/api/login', [
-            'email'=>'admin@hydra.project',
-            'password'=>'hydrax',
+            'email' => 'admin@hydra.project',
+            'password' => 'hydrax',
         ]);
 
         $response

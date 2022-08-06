@@ -51,15 +51,15 @@ class Handler extends ExceptionHandler {
     public function render($request, Throwable $exception) {
         if ($exception instanceof ModelNotFoundException) {
             return response([
-                'error'=>1,
-                'message'=>$exception->getMessage(),
+                'error' => 1,
+                'message' => $exception->getMessage(),
             ], 404);
         }
 
         if ($exception instanceof MissingAbilityException) {
             return response([
-                'error'=>1,
-                'message'=>'Not authorized',
+                'error' => 1,
+                'message' => 'Not authorized',
             ], 409);
         }
 

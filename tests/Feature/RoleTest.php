@@ -49,7 +49,7 @@ class RoleTest extends TestCase {
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->put('/api/roles/4', [
-                'name'=>'Chief Editor',
+                'name' => 'Chief Editor',
             ]);
 
         $response
@@ -72,7 +72,7 @@ class RoleTest extends TestCase {
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->put('/api/roles/4', [
-                'slug'=>'chief-editor',
+                'slug' => 'chief-editor',
             ]);
 
         $response
@@ -95,8 +95,8 @@ class RoleTest extends TestCase {
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->put('/api/roles/4', [
-                'name'=>'Editor X',
-                'slug'=>'editor-x',
+                'name' => 'Editor X',
+                'slug' => 'editor-x',
             ]);
 
         $response
@@ -120,7 +120,7 @@ class RoleTest extends TestCase {
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->put('/api/roles/1', [
-                'slug'=>'admin-x',
+                'slug' => 'admin-x',
             ]);
 
         $response
@@ -143,8 +143,8 @@ class RoleTest extends TestCase {
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->post('/api/roles', [
-                'name'=>'New Role',
-                'slug'=>'new-role',
+                'name' => 'New Role',
+                'slug' => 'new-role',
             ]);
 
         $response
@@ -168,8 +168,8 @@ class RoleTest extends TestCase {
 
         $response = $this->withHeader('Authorization', 'Bearer '.$this->token)
             ->post('/api/roles', [
-                'name'=>'New Role',
-                'slug'=>'new-role',
+                'name' => 'New Role',
+                'slug' => 'new-role',
             ]);
 
         $response

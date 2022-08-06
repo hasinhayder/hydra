@@ -168,9 +168,9 @@ class UserTest extends TestCase {
 
     public function test_delete_admin_user_if_multiple_admins_are_present() {
         $newAdminUser = User::create([
-            'name'=>'Test Admin',
-            'password'=>Hash::make('abcd'),
-            'email'=>'testadmin@test.com',
+            'name' => 'Test Admin',
+            'password' => Hash::make('abcd'),
+            'email' => 'testadmin@test.com',
         ]);
 
         $adminRole = Role::find(1);

@@ -20,8 +20,8 @@ class HydraLog {
 
     public function terminate($request, $response) {
         Log::info("\n\n".str_repeat('=', 100)."\n\n");
-        Log::debug('app.route', ['route'=>$request->route()]);
-        Log::debug('app.headers', ['headers'=>$request->headers]);
+        Log::debug('app.route', ['route' => $request->route()]);
+        Log::debug('app.headers', ['headers' => $request->headers]);
         Log::debug('app.requests', ['request' => $request->all()]);
         Log::debug('app.response', ['response' => $response]);
         Log::info("\n\n".str_repeat('=', 100)."\n\n");
