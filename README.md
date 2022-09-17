@@ -58,7 +58,7 @@ Then follow the process using either Docker or without Docker (simple).
 
 ### Without Docker (Simple)
 
-1. install the dependencies
+1. Install the dependencies
 
 ```shell
 composer install
@@ -86,7 +86,7 @@ That's mostly it! You have a fully running laravel installation with Sanctum, al
 
 ### Using Docker & Laravel Sail
 
-1. install the dependencies
+1. Install the dependencies
 
 ```shell
 docker run --rm \
@@ -133,7 +133,7 @@ touch database/hydra.sqlite
 
 Or simply create a new file as **hydra.sqlite** inside your **database** folder.
 
-2. you can run both migrations and seeders together by simply running the following command
+2. You can run both migrations and seeders together by simply running the following command
 
 ```shell
 php artisan migrate:fresh --seed
@@ -338,10 +338,10 @@ For any unsuccessful attempt or wrong token, you will receive a 401 error respon
 
 ### Update a User (User/Admin Ability Required)
 
-Make an `HTTP PUT` request to the following route to update an existing user. Replace {userid} with actual user id. You must include a Bearer token obtained from User/Admin authentication. A bearer admin token can update any user. A bearer user token can only update the authenticated user by this token.
+Make an `HTTP PUT` request to the following route to update an existing user. Replace {userId} with actual user id. You must include a Bearer token obtained from User/Admin authentication. A bearer admin token can update any user. A bearer user token can only update the authenticated user by this token.
 
 ```shell
-http://localhost:8000/api/users/{userid}
+http://localhost:8000/api/users/{userId}
 ```
 
 For example, to update the user with id 3, use this endpoint `http://localhost:8000/api/users/3`
@@ -396,10 +396,10 @@ For any unsuccessful attempt with an invalid `user id`, you will receive a 404 n
 
 ### Delete a User (Admin Ability Required)
 
-To delete an existing user, make a `HTTP DELETE` request to the following route. Replace {userid} with actual user id
+To delete an existing user, make a `HTTP DELETE` request to the following route. Replace {userId} with actual user id
 
 ```shell
-http://localhost:8000/api/users/{userid}
+http://localhost:8000/api/users/{userId}
 ```
 
 For example to delete the user with id 2, use this endpoint `http://localhost:8000/api/users/2`
@@ -543,7 +543,7 @@ For any unsuccessful attempt or wrong token, you will receive a 401 error respon
 To update a role, make an `HTTP PUT` or `HTTP PATCH` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call.
 
 ```shell
-http://localhost:8000/api/roles/{roleid}
+http://localhost:8000/api/roles/{roleId}
 ```
 
 For example to update the Customer role, use this endpoint `http://localhost:8000/api/roles/3`
@@ -584,7 +584,7 @@ For any unsuccessful attempt or wrong token, you will receive a 401 error respon
 To delete a role, make an `HTTP DELETE` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call.
 
 ```shell
-http://localhost:8000/api/roles/{roleid}
+http://localhost:8000/api/roles/{roleId}
 ```
 
 For example, to delete the Customer role, use this endpoint `http://localhost:8000/api/roles/3`
@@ -623,10 +623,10 @@ For any unsuccessful attempt or wrong token, you will receive a 401 error respon
 
 ### List Available Roles of a User (Admin Ability Required)
 
-To list all available roles for a user, make an `HTTP GET` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call. Replace {userid} with an actual user id
+To list all available roles for a user, make an `HTTP GET` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call. Replace {userId} with an actual user id
 
 ```shell
-http://localhost:8000/api/users/{userid}/roles
+http://localhost:8000/api/users/{userId}/roles
 ```
 
 For example to get all roles assigned to the user with id 2, use this endpoint `http://localhost:8000/api/users/2/roles`
@@ -667,10 +667,10 @@ For any unsuccessful attempt or wrong token, you will receive a 401 error respon
 
 ### Assign a Role to a User (Admin Ability Required)
 
-To assign a role to a user, make an `HTTP POST` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call. Replace {userid} with an actual user id
+To assign a role to a user, make an `HTTP POST` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call. Replace {userId} with an actual user id
 
 ```shell
-http://localhost:8000/api/users/{userid}/roles
+http://localhost:8000/api/users/{userId}/roles
 ```
 
 For example to assign a role to the user with id 2, use this endpoint `http://localhost:8000/api/users/2/roles`
@@ -721,10 +721,10 @@ For any unsuccessful attempt or wrong token, you will receive a 401 error respon
 
 ### Delete a Role from a User (Admin Ability Required)
 
-To delete a role from a user, make an `HTTP DELETE` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call. Replace `{userid}` with an actual user id, and `{role}` with an actual role id
+To delete a role from a user, make an `HTTP DELETE` request to the following route, with Admin Token obtained from Admin Login. Add this token as a standard `Bearer Token` to your API call. Replace `{userId}` with an actual user id, and `{role}` with an actual role id
 
 ```shell
-http://localhost:8000/api/users/{userid}/roles/{role}
+http://localhost:8000/api/users/{userId}/roles/{role}
 ```
 
 For example, to delete a role with id 3 from the user with id 2, use this endpoint `http://localhost:8000/api/users/2/roles/3`
@@ -812,13 +812,13 @@ curl --request GET \
 Hydra comes with an excellent logger to log request headers, parameters and response to help debugging and inspecting API calls. All you have to do is wrap the route with 'hydra.log' middleware, as shown below 
 
 ```php
-Route::post('login',[UserController::class,'login'])->middleware('hydra.log');
+Route::post('login', [UserController::class, 'login'])->middleware('hydra.log');
 ```
 
 or, like this
 
 ```php
-Route::put('users/{user}',[UserController::class,'update'])->middleware(['hydra.log', 'auth:sanctum', 'ability:admin,super-admin,user']);
+Route::put('users/{user}', [UserController::class, 'update'])->middleware(['hydra.log', 'auth:sanctum', 'ability:admin,super-admin,user']);
 
 ```
 
@@ -869,8 +869,8 @@ class MessageController extends Controller
         $user = $request->user();
 
         $response = [
-            "name"=>$user->name,
-            "role"=>$user->roles()->first()->name //or $user->roles()->first()->slug
+            "name" => $user->name,
+            "role" => $user->roles()->first()->name //or $user->roles()->first()->slug
         ];
 
         return $response;
@@ -887,7 +887,7 @@ Let's create a protected route `http://localhost:8000/api/greet` to use this API
 Open your `routes/api.php` file and add the following line at the end.
 
 ```php
-Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum']);
+Route::get('greet', [MessageController::class, 'greet'])->middleware(['auth:sanctum']);
 ```
 
 Nice! Now we have a route `/api/greet` that is only accessible with a valid bearer token.
@@ -916,8 +916,8 @@ curl --request POST \
   --header 'Accept: aplication/json' \
   --header 'Content-Type: application/json' \
   --data '{
-    "email":"user@hydra.project",
-    "password":"Surprisingly A Good Password"
+    "email": "user@hydra.project",
+    "password": "Surprisingly A Good Password"
 }'
 ```
 
@@ -954,26 +954,26 @@ Great! you have learned how to create your protected API endpoint using Laravel 
 Let's make our newly created API endpoint even more robust. Say, we want our route to be accessible by only admin users. Remember you added the following line in the `routes/api.php` file just a few minutes ago? Let's change it.
 
 ```php
-Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum']);
+Route::get('greet', [MessageController::class, 'greet'])->middleware(['auth:sanctum']);
 ```
 
 Change it like this
 
 ```php
-Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'ability:admin']);
+Route::get('greet', [MessageController::class, 'greet'])->middleware(['auth:sanctum', 'ability:admin']);
 ```
 
 Only an `HTTP GET` call with a valid admin user's access token can access this route.
 If you want this route to be accessible by the users with `admin`, **OR** the `user` role, then modify it.
 
 ```php
-Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'ability:admin,user']);
+Route::get('greet', [MessageController::class, 'greet'])->middleware(['auth:sanctum', 'ability:admin,user']);
 ```
 
 If you want this route to be accessible by the users with both `user`, **AND** the `customer` role, then modify it.
 
 ```php
-Route::get('greet', [MessageController::class,'greet'])->middleware(['auth:sanctum', 'abilities:customer,user']);
+Route::get('greet', [MessageController::class, 'greet'])->middleware(['auth:sanctum', 'abilities:customer,user']);
 ```
 
 Note that this time we have used the `abilities` keyword instead of `ability`
