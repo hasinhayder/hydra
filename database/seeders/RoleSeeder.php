@@ -10,10 +10,8 @@ use Illuminate\Support\Facades\Schema;
 class RoleSeeder extends Seeder {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run() {
+    public function run(): void {
         Schema::disableForeignKeyConstraints();
         DB::table('roles')->truncate();
         Schema::enableForeignKeyConstraints();

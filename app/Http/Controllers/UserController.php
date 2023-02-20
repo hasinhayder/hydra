@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Exceptions\MissingAbilityException;
 
@@ -20,11 +21,8 @@ class UserController extends Controller {
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request): User|Response {
         $creds = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -50,11 +48,8 @@ class UserController extends Controller {
 
     /**
      * Authenticate an user and dispatch token.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function login(Request $request) {
+    public function login(Request $request): Response {
         $creds = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -78,24 +73,17 @@ class UserController extends Controller {
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \App\Models\User  $user
      */
-    public function show(User $user) {
+    public function show(User $user): User {
         return $user;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return User
-     *
      * @throws MissingAbilityException
      */
-    public function update(Request $request, User $user) {
+    public function update(Request $request, User $user): User {
         $user->name = $request->name ?? $user->name;
         $user->email = $request->email ?? $user->email;
         $user->password = $request->password ? Hash::make($request->password) : $user->password;
@@ -117,11 +105,8 @@ class UserController extends Controller {
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user) {
+    public function destroy(User $user): Response {
         $adminRole = Role::where('slug', 'admin')->first();
         $userRoles = $user->roles;
 
@@ -139,10 +124,7 @@ class UserController extends Controller {
     }
 
     /**
-     * Return Auth user
-     *
-     * @param  Request  $request
-     * @return mixed
+     * Return Auth user.
      */
     public function me(Request $request) {
         return $request->user();

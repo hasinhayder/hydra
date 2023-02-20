@@ -7,10 +7,8 @@ use Tests\TestCase;
 class HelloHydraTest extends TestCase {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
-    public function test_hello_hydra() {
+    public function test_hello_hydra(): void {
         $response = $this->get('/api/hydra');
 
         $response
@@ -20,7 +18,7 @@ class HelloHydraTest extends TestCase {
             ]);
     }
 
-    public function test_hydra_version() {
+    public function test_hydra_version(): void {
         $response = $this->get('/api/hydra/version');
 
         $response
