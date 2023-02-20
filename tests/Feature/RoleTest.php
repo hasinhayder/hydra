@@ -9,10 +9,8 @@ use Tests\TestCase;
 class RoleTest extends TestCase {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
-    public function test_list_roles() {
+    public function test_list_roles(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydra',
@@ -37,7 +35,7 @@ class RoleTest extends TestCase {
             );
     }
 
-    public function test_update_role_name_as_admin() {
+    public function test_update_role_name_as_admin(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydra',
@@ -60,7 +58,7 @@ class RoleTest extends TestCase {
             );
     }
 
-    public function test_update_role_slug_as_admin() {
+    public function test_update_role_slug_as_admin(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydra',
@@ -83,7 +81,7 @@ class RoleTest extends TestCase {
             );
     }
 
-    public function test_update_role_namd_and_slug_as_admin() {
+    public function test_update_role_namd_and_slug_as_admin(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydra',
@@ -108,7 +106,7 @@ class RoleTest extends TestCase {
             );
     }
 
-    public function test_update_admin_slug_as_admin_should_fail() {
+    public function test_update_admin_slug_as_admin_should_fail(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydra',
@@ -131,7 +129,7 @@ class RoleTest extends TestCase {
             );
     }
 
-    public function test_create_new_role_as_admin() {
+    public function test_create_new_role_as_admin(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydra',
@@ -156,7 +154,7 @@ class RoleTest extends TestCase {
             );
     }
 
-    public function test_duplicate_role_will_not_be_created() {
+    public function test_duplicate_role_will_not_be_created(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydra',
@@ -179,7 +177,7 @@ class RoleTest extends TestCase {
             );
     }
 
-    public function test_delete_role_as_admin() {
+    public function test_delete_role_as_admin(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydra',
@@ -201,7 +199,7 @@ class RoleTest extends TestCase {
             );
     }
 
-    public function test_delete_admin_role_should_fail() {
+    public function test_delete_admin_role_should_fail(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydra',

@@ -8,7 +8,7 @@ use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class UserRoleTest extends TestCase {
-    public function test_user_role_is_present() {
+    public function test_user_role_is_present(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydra',
@@ -33,7 +33,7 @@ class UserRoleTest extends TestCase {
             );
     }
 
-    public function test_assign_role_to_a_user() {
+    public function test_assign_role_to_a_user(): void {
         $newUser = User::create([
             'name' => 'Test User',
             'password' => Hash::make('abcd'),
@@ -66,7 +66,7 @@ class UserRoleTest extends TestCase {
         $newUser->delete();
     }
 
-    public function test_assign_role_multiple_times_to_a_user_should_fail() {
+    public function test_assign_role_multiple_times_to_a_user_should_fail(): void {
         $newUser = User::create([
             'name' => 'Test User',
             'password' => Hash::make('abcd'),
@@ -99,7 +99,7 @@ class UserRoleTest extends TestCase {
         $newUser->delete();
     }
 
-    public function test_assign_multiple_roles_to_a_user() {
+    public function test_assign_multiple_roles_to_a_user(): void {
         $newUser = User::create([
             'name' => 'Test User',
             'password' => Hash::make('abcd'),
@@ -132,7 +132,7 @@ class UserRoleTest extends TestCase {
         $newUser->delete();
     }
 
-    public function test_delete_role_from_a_user() {
+    public function test_delete_role_from_a_user(): void {
         $newUser = User::create([
             'name' => 'Test User',
             'password' => Hash::make('abcd'),
@@ -168,7 +168,7 @@ class UserRoleTest extends TestCase {
         $newUser->delete();
     }
 
-    public function test_delete_all_roles_from_a_user() {
+    public function test_delete_all_roles_from_a_user(): void {
         $newUser = User::create([
             'name' => 'Test User',
             'password' => Hash::make('abcd'),

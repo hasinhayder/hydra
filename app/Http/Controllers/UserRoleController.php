@@ -5,26 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserRoleController extends Controller {
     /**
      * Display a listing of the resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \App\Models\User  $user
      */
-    public function index(User $user) {
+    public function index(User $user): User {
         return $user->load('roles');
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \App\Models\User  $user
      */
-    public function store(Request $request, User $user) {
+    public function store(Request $request, User $user): User|Response {
         $data = $request->validate([
             'role_id' => 'required|integer',
         ]);
@@ -38,12 +32,8 @@ class UserRoleController extends Controller {
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Role  $role
-     * @return \App\Models\User  $user
      */
-    public function destroy(User $user, Role $role) {
+    public function destroy(User $user, Role $role): User {
         $user->roles()->detach($role);
 
         return $user->load('roles');

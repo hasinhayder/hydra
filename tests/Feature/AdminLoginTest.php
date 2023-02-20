@@ -8,10 +8,8 @@ use Tests\TestCase;
 class AdminLoginTest extends TestCase {
     /**
      * A basic feature test example.
-     *
-     * @return void
      */
-    public function test_admin_login() {
+    public function test_admin_login(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydra',
@@ -24,7 +22,7 @@ class AdminLoginTest extends TestCase {
         );
     }
 
-    public function test_admin_login_fail() {
+    public function test_admin_login_fail(): void {
         $response = $this->postJson('/api/login', [
             'email' => 'admin@hydra.project',
             'password' => 'hydrax',

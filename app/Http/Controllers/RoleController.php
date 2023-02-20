@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class RoleController extends Controller {
     /**
@@ -17,11 +18,8 @@ class RoleController extends Controller {
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request): Role|Response {
         $data = $request->validate([
             'name' => 'required',
             'slug' => 'required',
@@ -43,22 +41,15 @@ class RoleController extends Controller {
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \App\Models\Role $role
      */
-    public function show(Role $role) {
+    public function show(Role $role): Role {
         return $role;
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|Role
      */
-    public function update(Request $request, Role $role = null) {
+    public function update(Request $request, Role $role = null): Role|Response {
         if (! $role) {
             return response(['error' => 1, 'message' => 'role doesn\'t exist'], 404);
         }
@@ -79,11 +70,8 @@ class RoleController extends Controller {
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role) {
+    public function destroy(Role $role): Response {
         if ($role->slug != 'admin' && $role->slug != 'super-admin') {
             //don't allow changing the admin slug, because it will make the routes inaccessbile due to faile ability check
             $role->delete();
