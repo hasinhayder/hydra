@@ -10,7 +10,6 @@ class UserRoleController extends Controller {
     /**
      * Display a listing of the resource.
      *
-     * @param  \App\Models\User  $user
      * @return \App\Models\User  $user
      */
     public function index(User $user) {
@@ -20,8 +19,6 @@ class UserRoleController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
      * @return \App\Models\User  $user
      */
     public function store(Request $request, User $user) {
@@ -39,8 +36,6 @@ class UserRoleController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Role  $role
      * @return \App\Models\User  $user
      */
     public function destroy(User $user, Role $role) {

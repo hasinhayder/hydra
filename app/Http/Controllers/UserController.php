@@ -21,7 +21,6 @@ class UserController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
@@ -51,7 +50,6 @@ class UserController extends Controller {
     /**
      * Authenticate an user and dispatch token.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request) {
@@ -79,7 +77,6 @@ class UserController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
      * @return \App\Models\User  $user
      */
     public function show(User $user) {
@@ -89,8 +86,6 @@ class UserController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
      * @return User
      *
      * @throws MissingAbilityException
@@ -118,7 +113,6 @@ class UserController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user) {
@@ -141,7 +135,6 @@ class UserController extends Controller {
     /**
      * Return Auth user
      *
-     * @param  Request  $request
      * @return mixed
      */
     public function me(Request $request) {
