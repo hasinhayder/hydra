@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Http\Requests\CredentialsRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Exceptions\MissingAbilityException;
@@ -21,25 +22,19 @@ class UserController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CredentialsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        $creds = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-            'name' => 'nullable|string',
-        ]);
-
-        $user = User::where('email', $creds['email'])->first();
+    public function store(CredentialsRequest $request) {
+        $user = User::where('email', $request['email'])->first();
         if ($user) {
             return response(['error' => 1, 'message' => 'user already exists'], 409);
         }
 
         $user = User::create([
-            'email' => $creds['email'],
-            'password' => Hash::make($creds['password']),
-            'name' => $creds['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'name' => $request['name'],
         ]);
 
         $defaultRoleSlug = config('hydra.default_user_role_slug', 'user');
@@ -51,16 +46,11 @@ class UserController extends Controller {
     /**
      * Authenticate an user and dispatch token.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CredentialsRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request) {
-        $creds = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        $user = User::where('email', $creds['email'])->first();
+    public function login(CredentialsRequest $request) {
+        $user = User::where('email', $request['email'])->first();
         if (! $user || ! Hash::check($request->password, $user->password)) {
             return response(['error' => 1, 'message' => 'invalid credentials'], 401);
         }
