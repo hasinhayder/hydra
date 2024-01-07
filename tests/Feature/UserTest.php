@@ -60,6 +60,7 @@ class UserTest extends TestCase {
         $response
             ->assertJson(
                 fn (AssertableJson $json) => $json->where('error', 0)
+                    ->has('name')
                     ->has('token')
                     ->has('id')
             );
