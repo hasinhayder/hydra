@@ -18,10 +18,10 @@ class AdminLoginTest extends TestCase {
         ]);
 
         $response
-        ->assertJson(fn (AssertableJson $json) => $json->where('error', 0)
-                 ->has('token')
-                 ->etc()
-        );
+            ->assertJson(fn (AssertableJson $json) => $json->where('error', 0)
+                ->has('token')
+                ->etc()
+            );
     }
 
     public function test_admin_login_fail() {
@@ -31,9 +31,9 @@ class AdminLoginTest extends TestCase {
         ]);
 
         $response
-        ->assertJson(fn (AssertableJson $json) => $json->where('error', 1)
-                 ->missing('token')
-                 ->has('message')
-        );
+            ->assertJson(fn (AssertableJson $json) => $json->where('error', 1)
+                ->missing('token')
+                ->has('message')
+            );
     }
 }

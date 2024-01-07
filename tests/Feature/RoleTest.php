@@ -55,8 +55,8 @@ class RoleTest extends TestCase {
         $response
             ->assertJson(
                 fn (AssertableJson $json) => $json->where('name', 'Chief Editor')
-                ->missing('error')
-                ->etc()
+                    ->missing('error')
+                    ->etc()
             );
     }
 
@@ -78,8 +78,8 @@ class RoleTest extends TestCase {
         $response
             ->assertJson(
                 fn (AssertableJson $json) => $json->where('slug', 'chief-editor')
-                ->missing('error')
-                ->etc()
+                    ->missing('error')
+                    ->etc()
             );
     }
 
@@ -102,9 +102,9 @@ class RoleTest extends TestCase {
         $response
             ->assertJson(
                 fn (AssertableJson $json) => $json->where('name', 'Editor X')
-                ->where('slug', 'editor-x')
-                ->missing('error')
-                ->etc()
+                    ->where('slug', 'editor-x')
+                    ->missing('error')
+                    ->etc()
             );
     }
 
@@ -126,8 +126,8 @@ class RoleTest extends TestCase {
         $response
             ->assertJson(
                 fn (AssertableJson $json) => $json
-                ->where('slug', 'admin')
-                ->etc()
+                    ->where('slug', 'admin')
+                    ->etc()
             );
     }
 
@@ -150,9 +150,9 @@ class RoleTest extends TestCase {
         $response
             ->assertJson(
                 fn (AssertableJson $json) => $json->where('name', 'New Role')
-                ->where('slug', 'new-role')
-                ->missing('error')
-                ->etc()
+                    ->where('slug', 'new-role')
+                    ->missing('error')
+                    ->etc()
             );
     }
 
@@ -175,7 +175,7 @@ class RoleTest extends TestCase {
         $response
             ->assertJson(
                 fn (AssertableJson $json) => $json->where('error', 1)
-                ->etc()
+                    ->etc()
             );
     }
 
@@ -197,7 +197,7 @@ class RoleTest extends TestCase {
         $response
             ->assertJson(
                 fn (AssertableJson $json) => $json->where('error', 0)
-                ->has('message')
+                    ->has('message')
             );
     }
 
@@ -219,7 +219,7 @@ class RoleTest extends TestCase {
         $response
             ->assertJson(
                 fn (AssertableJson $json) => $json->where('error', 1)
-                ->has('message')
+                    ->has('message')
             );
     }
 }

@@ -18,7 +18,6 @@ class RoleController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
@@ -44,7 +43,6 @@ class RoleController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
      * @return \App\Models\Role $role
      */
     public function show(Role $role) {
@@ -54,11 +52,9 @@ class RoleController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|Role
      */
-    public function update(Request $request, Role $role = null) {
+    public function update(Request $request, ?Role $role = null) {
         if (! $role) {
             return response(['error' => 1, 'message' => 'role doesn\'t exist'], 404);
         }
@@ -80,7 +76,6 @@ class RoleController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
     public function destroy(Role $role) {
