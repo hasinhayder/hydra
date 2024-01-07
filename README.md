@@ -3,7 +3,7 @@
 ![Hydra - Zero Config API Boilerplate with Laravel Sanctum](https://res.cloudinary.com/roxlox/image/upload/v1653133921/hydra/hydra-trnsparent_jcsl4l.png)
 
 # Hydra - Zero Config API Boilerplate with Laravel Sanctum
-![PHP 8.1 Tests](https://img.shields.io/github/workflow/status/hasinhayder/hydra/PHP%208.1%20Tests?label=PHP%208.1) ![PHP 8.2 Tests](https://img.shields.io/github/workflow/status/hasinhayder/hydra/PHP%208.2%20Tests?label=PHP%208.2) ![GitHub](https://img.shields.io/github/license/hasinhayder/hydra?label=License&style=flat-square)
+![GitHub](https://img.shields.io/github/license/hasinhayder/hydra?label=License&style=flat-square)
 
 Hydra is a zero-config API boilerplate with Laravel Sanctum and comes with excellent user and role management API out of the box. Start your next big API project with Hydra, focus on building business logic, and save countless hours of writing boring user and role management API again and again.
 
