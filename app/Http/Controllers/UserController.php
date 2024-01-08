@@ -94,7 +94,6 @@ class UserController extends Controller {
         $user->name = $request->name ?? $user->name;
         $user->email = $request->email ?? $user->email;
         $user->password = $request->password ? Hash::make($request->password) : $user->password;
-        $user->email_verified_at = $request->email_verified_at ?? $user->email_verified_at;
 
         //check if the logged in user is updating it's own record
 
@@ -102,6 +101,7 @@ class UserController extends Controller {
         if ($loggedInUser->id == $user->id) {
             $user->update();
         } elseif ($loggedInUser->tokenCan('admin') || $loggedInUser->tokenCan('super-admin')) {
+            $user->email_verified_at = $request->email_verified_at ?? $user->email_verified_at;
             $user->update();
         } else {
             throw new MissingAbilityException('Not Authorized');
