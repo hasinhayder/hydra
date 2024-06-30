@@ -22,7 +22,7 @@ return new class extends Migration {
      * @return void
      */
     public function down() {
-        Schema::table('personal_access_token', function (Blueprint $table) {
+        Schema::table('personal_access_tokens', function (Blueprint $table) {
             $table->dropColumn('expires_at');
         });
     }
