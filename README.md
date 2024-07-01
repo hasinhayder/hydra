@@ -35,7 +35,6 @@ Hydra works with Laravel 10.x and Sanctum 3.x. If you want to work with Laravel 
     - [Default Admin Username and Password](#default-admin-username-and-password)
     - [Default Role for New Users](#default-role-for-new-users)
     - [Single Session or Multiple Session](#single-session-or-multiple-session)
-    - [Add `Accept: application/json` Header In Your API Calls (Important)](#add-accept-applicationjson-header-in-your-api-calls-important)
     - [Logging](#logging)
     - [Code Formatting](#code-formatting)
   - [Tutorial](#tutorial)
@@ -791,24 +790,6 @@ Hydra doesn't invalidate the previously issued access tokens when a user authent
 
 This ENV variable is configured in in `config/hydra.php`, and then used in `app/Http/Controllers/UserController.php`
 
-### Add `Accept: application/json` Header In Your API Calls (Important)
-
-This is very important. To properly receive JSON responses, add the following header to your API requests.
-
-```shell
-Accept: application/json
-```
-
-For example, if you are using `curl` you can make a call like this. 
-
-```shell
-curl --request GET \
-  --url http://localhost:8000/hydra/version \
-  --header 'Accept: application/json' \
-  --header 'Content-Type: application/x-www-form-urlencoded' \
-  --data =
-```
-
 ### Logging
 
 Hydra comes with an excellent logger to log request headers, parameters and response to help debugging and inspecting API calls. All you have to do is wrap the route with 'hydra.log' middleware, as shown below 
@@ -903,7 +884,6 @@ To create a new user, you can place a curl request or use tools like Postman, In
 ```shell
 curl --request POST \
   --url http://localhost:8000/api/users \
-  --header 'Accept: application/json' \
   --header 'Content-Type: multipart/form-data; boundary=---011000010111000001101001' \
   --form 'name=Hydra User' \
   --form email=user@hydra.project \
@@ -915,7 +895,6 @@ Great! Now we have our users. Let's login as this new user using curl (You can u
 ```shell
 curl --request POST \
   --url http://localhost:8000/api/login \
-  --header 'Accept: aplication/json' \
   --header 'Content-Type: application/json' \
   --data '{
     "email": "user@hydra.project",
@@ -936,7 +915,6 @@ Now let's test our protected route. Add this bearer token in your PostMan/Insomn
 ```shell
 curl --request GET \
   --url http://localhost:8000/api/greet \
-  --header 'Accept: application/json' \
   --header 'Authorization: Bearer 5|gbiWdd7yJFYiTIgoK1jK3C7HZJtJUK1PnBIToBLN'
 ```
 
